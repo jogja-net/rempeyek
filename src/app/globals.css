@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* Design tokens (HANDOFF §6) */
+@theme {
+  --color-krem: #fbf5ea; /* latar halaman */
+  --color-kertas: #fffdf8; /* kartu */
+  --color-kraft: #eadbc0; /* permukaan / section selang-seling */
+  --color-kraft-garis: #e3d3b4; /* border */
+  --color-kraft-titik: #cdb48a; /* pola titik placeholder foto */
+  --color-kakao: #2b1a0e; /* teks utama, section gelap */
+  --color-kakao-2: #3c2614; /* kartu di section gelap */
+  --color-redup: #5a4130; /* teks sekunder */
+  --color-redup-terang: #dcc7a3; /* teks sekunder di section gelap */
+  --color-emas: #f2b33d; /* aksen, badge PO, band CTA */
+  --color-cabai: #c8361d; /* CTA utama */
+  --color-cabai-tua: #9e2914; /* hover CTA */
+
+  --font-judul: var(--font-bricolage), system-ui, sans-serif;
+  --font-badan: var(--font-jakarta), system-ui, sans-serif;
+
+  --radius-kartu: 20px;
+  --radius-blok: 28px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-krem);
+  color: var(--color-kakao);
+  font-family: var(--font-badan);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-judul);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Pola titik untuk placeholder foto produk */
+.pola-titik {
+  background-image: radial-gradient(var(--color-kraft-titik) 1.3px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+/* Ringkasan FAQ tanpa marker bawaan browser */
+.ringkasan-faq {
+  cursor: pointer;
+  list-style: none;
+}
+
+.ringkasan-faq::-webkit-details-marker {
+  display: none;
+}
+
+/* Hormati preferensi pengguna yang membatasi animasi */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
