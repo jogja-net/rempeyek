@@ -1,22 +1,27 @@
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque, Plus_Jakarta_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/next';
 import { site } from '@/data/site';
 import './globals.css';
 
-const bricolage = Bricolage_Grotesque({
-  subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
+// Font di-self-host dari berkas lokal, bukan diambil dari Google saat build.
+// Alasan: pengambilan font Google saat build pernah menggagalkan build dengan
+// "An error occurred in `next/font`" (TypeError: Cannot read properties of null)
+// baik di lokal maupun di Vercel. Berkas + lisensi ada di src/app/fonts/.
+// Nama variabel CSS (--font-bricolage, --font-jakarta) dipertahankan sama,
+// jadi globals.css dan seluruh komponen tidak perlu diubah.
+const bricolage = localFont({
+  src: [{ path: './fonts/bricolage-grotesque-latin.woff2', weight: '200 800', style: 'normal' }],
   variable: '--font-bricolage',
   display: 'swap',
 });
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const jakarta = localFont({
+  src: [{ path: './fonts/plus-jakarta-sans-latin.woff2', weight: '200 800', style: 'normal' }],
   variable: '--font-jakarta',
   display: 'swap',
 });
+
 
 // Title ≤ 60 karakter setelah kota diisi (HANDOFF §8).
 // Contoh terisi (kota "Sleman"): "Rempeyek Kacang Renyah Bu Aviella – Sleman | Pesan WA" = 55 karakter.
