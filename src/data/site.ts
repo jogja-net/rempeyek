@@ -1,6 +1,12 @@
 // src/data/site.ts
 // Identitas toko. Nilai `null` = data belum diisi Bu Aviella → dirender sebagai placeholder.
 
+/** Baca env; nilai kosong/spasi dianggap belum diisi. */
+function dariEnv(nama: string, bawaan: string): string {
+  const nilai = (process.env[nama] ?? '').trim();
+  return nilai === '' ? bawaan : nilai;
+}
+
 export const site = {
   nama: 'Rempeyek Bu Aviella',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
@@ -13,6 +19,13 @@ export const site = {
   areaKirim: null as string | null,
   kurir: [] as string[],
   bank: [] as string[],
+  // Rekening tujuan transfer (spec §90). BUKAN layar admin: nilainya dari env
+  // supaya bisa diganti tanpa deploy. Bawaan sengaja jelas palsu untuk demo.
+  rekening: {
+    bank: dariEnv('REKENING_BANK', 'BANK DEMO'),
+    nomor: dariEnv('REKENING_NOMOR', '0000-0000-0000'),
+    atasNama: dariEnv('REKENING_NAMA', 'DEMO BU AVIELLA'),
+  },
   instagram: null as string | null,
   tiktok: null as string | null,
   shopee: null as string | null,
