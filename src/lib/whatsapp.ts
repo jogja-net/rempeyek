@@ -1,5 +1,6 @@
 // src/lib/whatsapp.ts
 import { site } from '@/data/site';
+import { formatRupiah } from './format';
 
 /** Nomor placeholder yang dipakai selama nomor WA asli belum diisi. */
 const NOMOR_PLACEHOLDER = '62XXXXXXXXXX';
@@ -26,6 +27,9 @@ export const pesan = {
   sambal: (nama: string) => `Halo Bu Aviella, saya mau tambah ${nama} x 1 ke pesanan rempeyek.`,
   hampers: 'Halo Bu Aviella, saya mau tanya paket hampers.\nJumlah: \nTanggal acara: \nBudget: ',
   reseller: 'Halo Bu Aviella, saya tertarik jadi reseller rempeyek.',
+  // Marketplace (Task 9): pembeli mengirim bukti transfer setelah checkout.
+  bukti: (nomor: string, total: number, rekeningNama: string) =>
+    `Halo Bu Aviella, saya sudah transfer untuk pesanan ${nomor} (total ${formatRupiah(total)}) ke rekening a.n. ${rekeningNama}. Berikut bukti transfernya.`,
 } as const;
 
 export function waUmum() {

@@ -14,13 +14,14 @@
 'use server';
 
 import { createHash, timingSafeEqual } from 'node:crypto';
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 
 import { buatToken, UMUR_SESI_MS, verifikasiPassword } from '@/lib/admin-auth';
 import { ambilSecret, NAMA_COOKIE_SESI } from '@/lib/admin-sesi';
 import { getDb } from '@/lib/db/client';
 import { migrate } from '@/lib/db/migrate';
+import { alamatIp } from '@/lib/ip';
 import { cekBatas } from '@/lib/laju';
 import { marketplaceAktif } from '@/lib/mode';
 
@@ -32,14 +33,6 @@ function samaTeks(a: string, b: string): boolean {
   const kiri = createHash('sha256').update(a, 'utf8').digest();
   const kanan = createHash('sha256').update(b, 'utf8').digest();
   return timingSafeEqual(kiri, kanan);
-}
-
-/** Alamat IP pemanggil untuk kunci pembatas laju. */
-async function alamatIp(): Promise<string> {
-  const kepala = await headers();
-  const diteruskan = kepala.get('x-forwarded-for') ?? '';
-  const pertama = diteruskan.split(',')[0]?.trim() ?? '';
-  return pertama === '' ? 'lokal' : pertama;
 }
 
 export async function masuk(formData: FormData): Promise<void> {

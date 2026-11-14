@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/next';
 import { site } from '@/data/site';
+import { KeranjangProvider } from '@/components/KeranjangProvider';
+import { marketplaceAktif } from '@/lib/mode';
 import './globals.css';
 
 // Font di-self-host dari berkas lokal, bukan diambil dari Google saat build.
@@ -60,7 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id" className={`${bricolage.variable} ${jakarta.variable}`}>
       <body>
-        {children}
+        {/* Provider keranjang hanya dipasang saat marketplace aktif; di produksi
+            halaman identik dengan sebelum Fase 2 (tanpa JS tambahan). */}
+        {marketplaceAktif() ? <KeranjangProvider>{children}</KeranjangProvider> : children}
         <Analytics />
       </body>
     </html>
