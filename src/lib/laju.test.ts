@@ -52,6 +52,19 @@ describe('cekBatas', () => {
     assert.equal(await cekBatas(db, 'nol', 0, 60, t), false);
   });
 
+  it('permintaan serempak tidak bisa melewati batas (atomik)', async () => {
+    const hasil = await Promise.all(
+      Array.from({ length: 20 }, () => cekBatas(db, 'serempak', 5, 60, t)),
+    );
+    assert.equal(hasil.filter(Boolean).length, 5);
+
+    const tercatat = await db.execute({
+      sql: 'SELECT COUNT(*) AS jumlah FROM batas_laju WHERE kunci = ?',
+      args: ['serempak'],
+    });
+    assert.equal(Number(tercatat.rows[0].jumlah), 5);
+  });
+
   it('membersihkan catatan lama dari tabel', async () => {
     await cekBatas(db, 'bersih', 10, 60, t);
     await cekBatas(db, 'bersih', 10, 60, t + 61_000);

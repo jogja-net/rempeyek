@@ -11,8 +11,8 @@ import type { Client } from '@libsql/client';
 /**
  * Mencatat satu percobaan bila masih di bawah batas.
  *
- * Alur: bersihkan catatan yang lebih tua dari jendela, hitung yang tersisa,
- * lalu catat percobaan ini hanya jika masih ada kuota.
+ * Alur: bersihkan catatan yang lebih tua dari jendela, lalu — dalam satu
+ * pernyataan atomik — catat percobaan ini hanya jika kuota masih tersisa.
  *
  * @param kunci        Pembeda kuota, mis. `'lacak:<ip>'` atau `'login:<ip>'`.
  * @param maks         Jumlah percobaan maksimum dalam satu jendela.
@@ -36,19 +36,15 @@ export async function cekBatas(
     args: [kunci, batasAwal],
   });
 
-  const terpakai = await db.execute({
-    sql: 'SELECT COUNT(*) AS jumlah FROM batas_laju WHERE kunci = ?',
-    args: [kunci],
+  // Hitung-lalu-catat WAJIB satu pernyataan. Bila dipecah jadi SELECT lalu
+  // INSERT, permintaan serempak sama-sama melihat "masih ada kuota" dan lolos
+  // semua — membuat batas login bisa dilewati dengan permintaan paralel.
+  const hasil = await db.execute({
+    sql: `INSERT INTO batas_laju (kunci, waktu)
+          SELECT ?, ?
+          WHERE (SELECT COUNT(*) FROM batas_laju WHERE kunci = ?) < ?`,
+    args: [kunci, sekarangMs, kunci, maks],
   });
 
-  if (Number(terpakai.rows[0]?.jumlah ?? 0) >= maks) {
-    return false;
-  }
-
-  await db.execute({
-    sql: 'INSERT INTO batas_laju (kunci, waktu) VALUES (?, ?)',
-    args: [kunci, sekarangMs],
-  });
-
-  return true;
+  return hasil.rowsAffected === 1;
 }
