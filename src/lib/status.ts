@@ -17,6 +17,16 @@ const TRANSISI: ReadonlyArray<readonly [StatusPesanan, StatusPesanan]> = [
   ['dikirim', 'selesai'],
 ];
 
+/** Label berbahasa Indonesia untuk status (termasuk `kedaluwarsa`). */
+export const LABEL_STATUS: Record<StatusPesanan | 'kedaluwarsa', string> = {
+  menunggu_pembayaran: 'Menunggu pembayaran',
+  kedaluwarsa: 'Kedaluwarsa',
+  dibayar: 'Sudah dibayar',
+  dikirim: 'Dikirim',
+  selesai: 'Selesai',
+  batal: 'Dibatalkan',
+};
+
 /** Apakah pesanan boleh berpindah dari `dari` ke `ke`? */
 export function bolehPindah(dari: StatusPesanan, ke: StatusPesanan): boolean {
   return TRANSISI.some(([d, k]) => d === dari && k === ke);
