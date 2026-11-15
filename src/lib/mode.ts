@@ -2,9 +2,10 @@
 //
 // Satu-satunya saklar yang menentukan apakah fitur marketplace hidup.
 //
-// Dua syarat, keduanya wajib (Global Constraints):
-//   1. Bukan produksi — demo tidak boleh tampil ke pembeli nyata.
-//   2. Database dikonfigurasi — tanpa Turso tidak ada yang bisa ditampilkan.
+// Syarat: database dikonfigurasi — tanpa Turso tidak ada yang bisa ditampilkan.
+// (Dulu ada syarat kedua "bukan produksi"; dicabut atas keputusan pemilik
+// 15 Nov 2026 supaya marketplace hidup di produksi. Pita demo tetap tampil
+// selama data masih tiruan.)
 //
 // Dipanggil di setiap halaman/aksi marketplace. Sengaja membaca `env` sebagai
 // argumen supaya bisa diuji tanpa menyentuh `process.env` global.
@@ -18,6 +19,5 @@ export type Lingkungan = Record<string, string | undefined>;
  * @param env Bawaan `process.env`. Di tes, kirim objek literal.
  */
 export function marketplaceAktif(env: Lingkungan = process.env): boolean {
-  if (env.VERCEL_ENV === 'production') return false;
   return (env.TURSO_DATABASE_URL ?? '').trim() !== '';
 }
