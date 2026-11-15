@@ -18,7 +18,7 @@ import FormCheckout from './FormCheckout';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Checkout — Rempeyek Bu Aviella',
+  title: 'Checkout | Peyek Bu Aviella',
   robots: { index: false, follow: false },
 };
 

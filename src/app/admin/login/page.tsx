@@ -16,7 +16,7 @@ import { marketplaceAktif } from '@/lib/mode';
 import { masuk } from './aksi';
 
 export const metadata: Metadata = {
-  title: 'Masuk Admin — Rempeyek Bu Aviella',
+  title: 'Masuk Admin | Peyek Bu Aviella',
   robots: { index: false, follow: false },
 };
 
@@ -44,7 +44,7 @@ export default async function HalamanLogin({
     <main className="flex min-h-dvh items-center justify-center bg-krem px-6 py-16">
       <div className="w-full max-w-sm">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-redup">
-          Rempeyek Bu Aviella
+          Peyek Bu Aviella
         </p>
         <h1 className="mb-1 font-judul text-3xl font-bold text-kakao">Masuk Admin</h1>
         <p className="mb-8 text-sm text-redup">Panel ini hanya untuk pemilik toko.</p>

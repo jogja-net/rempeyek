@@ -3,7 +3,7 @@
 const alasan = [
   {
     judul: 'Digoreng saat dipesan',
-    isi: 'Rempeyek dibuat setelah pesanan masuk, bukan stok lama yang menunggu di rak.',
+    isi: 'Peyek dibuat setelah pesanan masuk, bukan stok lama yang menunggu di rak.',
   },
   {
     judul: 'Langsung ke pembuatnya',

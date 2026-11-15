@@ -18,7 +18,7 @@ import IsiKeranjang from './IsiKeranjang';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Keranjang — Rempeyek Bu Aviella',
+  title: 'Keranjang | Peyek Bu Aviella',
   robots: { index: false, follow: false },
 };
 

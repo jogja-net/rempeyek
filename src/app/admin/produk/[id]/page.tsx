@@ -13,7 +13,7 @@ import { ambilProdukById, type ProdukDb } from '@/lib/produk-repo';
 import { hapus, simpan } from '../aksi';
 
 export const metadata: Metadata = {
-  title: 'Ubah Produk — Panel Admin',
+  title: 'Ubah Produk | Panel Admin',
   robots: { index: false, follow: false },
 };
 
@@ -87,7 +87,7 @@ export default async function HalamanFormProduk({
               Kategori
             </label>
             <select id="kategori" name="kategori" defaultValue={produk?.kategori ?? 'rempeyek'} className={KOLOM}>
-              <option value="rempeyek">Rempeyek</option>
+              <option value="rempeyek">Peyek</option>
               <option value="sambal">Sambal</option>
             </select>
           </div>

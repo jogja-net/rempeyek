@@ -3,7 +3,7 @@ import { site } from '@/data/site';
 
 // OG image 1200x630 (HANDOFF §3 & §8). Penting karena preview link di WhatsApp
 // adalah kesan pertama calon pembeli.
-export const alt = `${site.nama} — Rempeyek kacang kriuk, pesan via WhatsApp`;
+export const alt = `${site.nama}, peyek kacang kriuk, pesan via WhatsApp`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -45,7 +45,7 @@ export default async function OpengraphImage() {
               letterSpacing: '-0.03em',
             }}
           >
-            Rempeyek kacang yang kriuknya bikin nambah nasi.
+            Peyek kacang yang kriuknya bikin nambah nasi.
           </span>
           <span style={{ fontSize: 34, color: '#5A4130' }}>
             Digoreng di dapur rumah · Pesan langsung via WhatsApp

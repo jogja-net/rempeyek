@@ -8,7 +8,7 @@ function dariEnv(nama: string, bawaan: string): string {
 }
 
 export const site = {
-  nama: 'Rempeyek Bu Aviella',
+  nama: 'Peyek Bu Aviella',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
   // Format 62xxxxxxxxxx tanpa tanda +, spasi, atau tanda hubung.
   whatsapp: process.env.NEXT_PUBLIC_WA_NUMBER ?? (null as string | null),

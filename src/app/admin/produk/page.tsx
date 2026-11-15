@@ -10,7 +10,7 @@ import { formatBerat, formatRupiah } from '@/lib/format';
 import { daftarProdukAdmin } from '@/lib/produk-repo';
 
 export const metadata: Metadata = {
-  title: 'Produk — Panel Admin',
+  title: 'Produk | Panel Admin',
   robots: { index: false, follow: false },
 };
 
@@ -82,7 +82,7 @@ export default async function HalamanProduk({
                     )}
                   </p>
                   <p className="text-sm text-redup">
-                    {p.kategori === 'sambal' ? 'Sambal' : 'Rempeyek'} · {formatBerat(p.berat_gram)} ·{' '}
+                    {p.kategori === 'sambal' ? 'Sambal' : 'Peyek'} · {formatBerat(p.berat_gram)} ·{' '}
                     {LABEL_STATUS[p.status]}
                     {p.gambar.length === 0 && ' · belum ada foto'}
                   </p>

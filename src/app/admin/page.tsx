@@ -13,7 +13,7 @@ import { daftarPesanan } from '@/lib/pesanan-repo';
 import { LABEL_STATUS, type StatusPesanan } from '@/lib/status';
 
 export const metadata: Metadata = {
-  title: 'Pesanan — Panel Admin',
+  title: 'Pesanan | Panel Admin',
   robots: { index: false, follow: false },
 };
 

@@ -15,7 +15,7 @@ import { hitungBeratTotal } from '@/lib/hitung';
 import { ambilPesanan } from '@/lib/pesanan-repo';
 
 export const metadata: Metadata = {
-  title: 'Resi — Panel Admin',
+  title: 'Resi | Panel Admin',
   robots: { index: false, follow: false },
 };
 
@@ -88,7 +88,7 @@ export default async function HalamanResi({ params }: { params: Promise<{ id: st
           <p>
             Pesanan {pesanan.nomor} · dikirim {formatWaktuWib(pesanan.dikirimPada)}
           </p>
-          <p className="mt-1 font-semibold">RESI DEMO — bukan resi ekspedisi sungguhan</p>
+          <p className="mt-1 font-semibold">RESI DEMO: bukan resi ekspedisi sungguhan</p>
         </footer>
       </article>
     </main>

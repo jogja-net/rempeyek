@@ -228,7 +228,7 @@ export default function FormCheckout({
                   />
                   <span>
                     <span className="block font-semibold capitalize text-kakao">
-                      {o.kurir} — {o.kode}
+                      {o.kurir}, {o.kode}
                     </span>
                     <span className="block text-sm text-redup">Estimasi {o.estimasi}</span>
                   </span>

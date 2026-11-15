@@ -77,3 +77,114 @@ export function produkCadangan(): ProdukDb[] {
 
   return [...rempeyek, ...sambal];
 }
+
+// ---------------------------------------------------------------------------
+// Katalog untuk landing page (Task 10).
+//
+// Satu bentuk data untuk dua sumber, supaya komponen tidak bercabang:
+//   - marketplace aktif + database terbaca  → data database (`dariDb: true`)
+//   - selain itu                            → data statis `src/data/*`
+//
+// Cabang statis SENGAJA mempertahankan `null` (belum diisi) apa adanya, bukan
+// mengubahnya jadi 0 seperti `produkCadangan()`, supaya halaman produksi tetap
+// identik: "[HARGA]" tampil sebagai placeholder dan check-placeholders tetap bekerja.
+// ---------------------------------------------------------------------------
+
+export type ProdukKartu = {
+  /** ID database (> 0) bila berasal dari database; `null` untuk data statis. */
+  id: number | null;
+  slug: string;
+  nama: string;
+  deskripsi: string;
+  harga: number | null;
+  berat_gram: number | null;
+  gambar: string[];
+  status: ProdukDb['status'];
+  warna_isian: string;
+};
+
+export type SambalKartu = {
+  id: number | null;
+  slug: string;
+  nama: string;
+  ukuran: string | null;
+  harga: number | null;
+  status: ProdukDb['status'];
+};
+
+export type KatalogLanding = {
+  /** true bila data berasal dari database, yaitu keranjang dan halaman produk boleh dipakai. */
+  dariDb: boolean;
+  peyek: ProdukKartu[];
+  sambal: SambalKartu[];
+};
+
+export async function ambilKatalogLanding(): Promise<KatalogLanding> {
+  if (marketplaceAktif()) {
+    try {
+      const dariDb = await daftarProdukTampil(getDb());
+      if (dariDb.length > 0) {
+        return {
+          dariDb: true,
+          peyek: dariDb
+            .filter((p) => p.kategori === 'rempeyek')
+            .map((p) => ({
+              id: p.id,
+              slug: p.slug,
+              nama: p.nama,
+              deskripsi: p.deskripsi,
+              harga: p.harga,
+              berat_gram: p.berat_gram,
+              gambar: p.gambar,
+              status: p.status,
+              warna_isian: p.warna_isian,
+            })),
+          sambal: dariDb
+            .filter((p) => p.kategori === 'sambal')
+            .map((p) => ({
+              id: p.id,
+              slug: p.slug,
+              nama: p.nama,
+              ukuran: p.berat_gram > 0 ? `${p.berat_gram} g` : null,
+              harga: p.harga,
+              status: p.status,
+            })),
+        };
+      }
+    } catch (galat) {
+      console.warn(
+        'katalog: gagal membaca database untuk landing, memakai data statis:',
+        galat instanceof Error ? galat.message : galat,
+      );
+    }
+  }
+
+  return {
+    dariDb: false,
+    peyek: produkStatis.map((p) => ({
+      id: null,
+      slug: p.slug,
+      nama: p.nama,
+      deskripsi: p.deskripsi_singkat,
+      harga: p.harga,
+      berat_gram: p.berat_gram,
+      gambar: p.gambar,
+      status: p.status,
+      warna_isian: p.warna_isian,
+    })),
+    sambal: sambalStatis.map((s) => ({
+      id: null,
+      slug: s.slug,
+      nama: s.nama,
+      ukuran: s.ukuran,
+      harga: s.harga,
+      status: 'tersedia' as const,
+    })),
+  };
+}
+
+/** Harga peyek terendah yang sudah terisi (> 0), untuk stiker "mulai Rp …". */
+export function hargaTerendah(peyek: ProdukKartu[]): number | null {
+  const harga = peyek.map((p) => p.harga).filter((h): h is number => typeof h === 'number' && h > 0);
+  return harga.length > 0 ? Math.min(...harga) : null;
+}

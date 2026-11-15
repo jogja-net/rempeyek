@@ -12,7 +12,7 @@ export default function NotFound() {
       </h1>
       <p className="m-0 text-redup">
         Mungkin tautannya salah ketik atau halaman sudah dipindahkan. Kembali ke halaman utama untuk
-        melihat varian rempeyek.
+        melihat varian peyek.
       </p>
       <Link
         href="/"

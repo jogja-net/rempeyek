@@ -14,7 +14,7 @@ export default function Hampers() {
       className="mx-auto grid max-w-[1160px] items-center gap-14 px-6 py-24 lg:grid-cols-[repeat(auto-fit,minmax(min(420px,100%),1fr))]"
     >
       <PlaceholderFoto
-        label="[FOTO ASLI] Hampers rempeyek: toples, pita, kartu ucapan"
+        label="[FOTO ASLI] Hampers peyek: toples, pita, kartu ucapan"
         className="min-h-[420px] rounded-[28px]"
         tanpaIlustrasi
       />

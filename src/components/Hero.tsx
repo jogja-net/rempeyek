@@ -1,16 +1,15 @@
 import { site } from '@/data/site';
-import { produk } from '@/data/products';
 import { formatRupiah } from '@/lib/format';
+import { hargaTerendah, type KatalogLanding } from '@/lib/katalog';
 import { waUmum } from '@/lib/whatsapp';
 import WaLink from './WaLink';
 import PlaceholderFoto from './PlaceholderFoto';
 import { IkonChat, PeyekHeroKedua, PeyekHeroUtama } from './PeyekIllustration';
 
 // Hero 2 kolom (HANDOFF §7.2). Server component.
-export default function Hero() {
+export default function Hero({ katalog }: { katalog: KatalogLanding }) {
   // Harga terendah dari produk yang sudah punya harga → stiker "mulai Rp …".
-  const daftarHarga = produk.map((p) => p.harga).filter((h): h is number => typeof h === 'number');
-  const hargaTerendah = daftarHarga.length > 0 ? Math.min(...daftarHarga) : null;
+  const harga = hargaTerendah(katalog.peyek);
 
   // Area kirim & PIRT hanya dirender bila datanya ada.
   const areaKirim = site.areaKirim ?? '[AREA PENGIRIMAN]';
@@ -31,12 +30,12 @@ export default function Hero() {
         </span>
 
         <h1 className="m-0 text-[clamp(42px,6.2vw,76px)] leading-none font-extrabold tracking-[-0.03em]">
-          Rempeyek kacang yang kriuknya bikin nambah nasi.
+          Peyek kacang yang kriuknya bikin nambah nasi.
         </h1>
 
         <p className="m-0 max-w-[46ch] text-[18px] text-redup">
           Digoreng tipis satu per satu, dikemas setelah benar-benar dingin. Pesan langsung ke Bu
-          Aviella lewat WhatsApp — tanpa aplikasi, tanpa daftar akun.
+          Aviella lewat WhatsApp, tanpa aplikasi dan tanpa daftar akun.
         </p>
 
         <div className="flex flex-wrap items-start gap-3.5">
@@ -69,7 +68,7 @@ export default function Hero() {
         {/* Area foto asli */}
         <div className="absolute inset-5 flex items-end rounded-[20px] border-2 border-dashed border-kraft-titik p-5">
           <span className="rounded-lg bg-krem px-3 py-1.5 text-[13px] font-semibold text-redup">
-            [FOTO ASLI] Close-up rempeyek kacang dipatahkan, cahaya dari samping
+            [FOTO ASLI] Close-up peyek kacang dipatahkan, cahaya dari samping
           </span>
         </div>
 
@@ -80,7 +79,7 @@ export default function Hero() {
         {/* Stiker bulat emas */}
         <div className="absolute top-[8%] right-[7%] flex h-[132px] w-[132px] -rotate-8 flex-col items-center justify-center rounded-full bg-emas text-center leading-[1.15] text-kakao">
           <span className="text-[13px] font-semibold">mulai</span>
-          <span className="font-judul text-[22px] font-extrabold">{formatRupiah(hargaTerendah)}</span>
+          <span className="font-judul text-[22px] font-extrabold">{formatRupiah(harga)}</span>
         </div>
       </div>
     </section>

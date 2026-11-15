@@ -17,7 +17,7 @@ import { statusTampil } from '@/lib/status';
 import { ubahStatus } from './aksi';
 
 export const metadata: Metadata = {
-  title: 'Detail Pesanan — Panel Admin',
+  title: 'Detail Pesanan | Panel Admin',
   robots: { index: false, follow: false },
 };
 
@@ -101,7 +101,7 @@ export default async function HalamanDetailPesanan({
         <h2 className="mb-2 font-judul text-lg font-bold text-kakao">Pengiriman</h2>
         <dl>
           <Baris label="Kurir">
-            {pesanan.kurir} — {pesanan.layanan}
+            {pesanan.kurir}, {pesanan.layanan}
           </Baris>
           <Baris label="Berat">{formatBerat(hitungBeratTotal(pesanan.items))}</Baris>
           <Baris label="Nomor resi">{pesanan.resi ?? '-'}</Baris>

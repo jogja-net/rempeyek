@@ -23,7 +23,7 @@ import { daftarProdukAdmin, simpanProduk, type InputProduk } from '../src/lib/pr
 /** Data contoh: 4 rempeyek + 2 sambal. Harga & berat bulat, jelas tiruan. */
 const CONTOH: InputProduk[] = [
   {
-    nama: 'Rempeyek Kacang Tanah',
+    nama: 'Peyek Kacang Tanah',
     kategori: 'rempeyek',
     deskripsi: 'Varian klasik, kacang tanah di setiap keping. (contoh demo)',
     harga: 15000,
@@ -33,7 +33,7 @@ const CONTOH: InputProduk[] = [
     warna_isian: '#9A5B22',
   },
   {
-    nama: 'Rempeyek Kacang Hijau',
+    nama: 'Peyek Kacang Hijau',
     kategori: 'rempeyek',
     deskripsi: 'Kacang hijau utuh dalam adonan tipis. (contoh demo)',
     harga: 15000,
@@ -43,7 +43,7 @@ const CONTOH: InputProduk[] = [
     warna_isian: '#5F7A2E',
   },
   {
-    nama: 'Rempeyek Teri',
+    nama: 'Peyek Teri',
     kategori: 'rempeyek',
     deskripsi: 'Teri nasi gurih, pas jadi lauk. (contoh demo)',
     harga: 20000,
@@ -53,7 +53,7 @@ const CONTOH: InputProduk[] = [
     warna_isian: '#6F767C',
   },
   {
-    nama: 'Rempeyek Rebon',
+    nama: 'Peyek Rebon',
     kategori: 'rempeyek',
     deskripsi: 'Udang rebon kering dengan aroma yang khas. (contoh demo)',
     harga: 20000,

@@ -1,14 +1,16 @@
-import { sambal } from '@/data/sambal';
 import { site } from '@/data/site';
 import { formatRupiah, atau } from '@/lib/format';
+import type { KatalogLanding } from '@/lib/katalog';
 import { buildWaLink, pesan } from '@/lib/whatsapp';
 import WaLink from './WaLink';
 import { IkonSambal } from './PeyekIllustration';
+import TambahKeKeranjang from './TambahKeKeranjang';
 
 // Section sambal (HANDOFF §7.4) — hanya dirender bila site.tampilkanSambal = true
 // dan daftar sambal tidak kosong. Lihat acceptance §11: "section sambal hilang saat
 // tampilkanSambal = false".
-export default function SambalSection() {
+export default function SambalSection({ katalog }: { katalog: KatalogLanding }) {
+  const { sambal, dariDb } = katalog;
   if (!site.tampilkanSambal || sambal.length === 0) return null;
 
   return (
@@ -22,7 +24,7 @@ export default function SambalSection() {
             Lebih nikmat ditemani sambal.
           </h2>
           <p className="m-0 max-w-[40ch] text-redup-terang">
-            Tambahkan sambal ke pesanan rempeyek, kirim dalam satu paket.
+            Tambahkan sambal ke pesanan peyek, kirim dalam satu paket.
           </p>
         </div>
 
@@ -37,14 +39,23 @@ export default function SambalSection() {
               <span className="text-[15px] text-redup-terang">
                 {atau(item.ukuran, '[UKURAN]')} · {formatRupiah(item.harga)}
               </span>
-              <WaLink
-                href={buildWaLink(site.whatsapp, pesan.sambal(item.nama))}
-                lokasi="sambal"
-                produk={item.slug}
-                className="inline-flex min-h-11 items-center justify-center rounded-full bg-emas px-4 text-[15px] font-bold text-kakao no-underline hover:bg-[#DBA02F]"
-              >
-                Tambah ke pesanan
-              </WaLink>
+              {dariDb && item.id !== null && item.id > 0 ? (
+                <TambahKeKeranjang
+                  produkId={item.id}
+                  nama={item.nama}
+                  status={item.status}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-emas px-4 text-[15px] font-bold text-kakao hover:bg-[#DBA02F] disabled:cursor-not-allowed disabled:bg-kakao-2 disabled:text-redup-terang"
+                />
+              ) : (
+                <WaLink
+                  href={buildWaLink(site.whatsapp, pesan.sambal(item.nama))}
+                  lokasi="sambal"
+                  produk={item.slug}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-emas px-4 text-[15px] font-bold text-kakao no-underline hover:bg-[#DBA02F]"
+                >
+                  Tambah ke pesanan
+                </WaLink>
+              )}
             </article>
           ))}
         </div>

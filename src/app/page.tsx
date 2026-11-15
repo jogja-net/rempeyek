@@ -11,19 +11,30 @@ import CtaBand from '@/components/CtaBand';
 import Footer from '@/components/Footer';
 import StickyWaBar from '@/components/StickyWaBar';
 import JsonLd from '@/components/JsonLd';
+import PitaDemo from '@/components/PitaDemo';
+import { ambilKatalogLanding } from '@/lib/katalog';
+import { marketplaceAktif } from '@/lib/mode';
 
 // Landing page (server component). Urutan section mengikuti HANDOFF §7.
 // Tanpa "use client" di level page: seluruh konten produk ada di HTML hasil build.
-export default function Home() {
+//
+// Katalog dibaca SEKALI di sini (database bila marketplace aktif, data statis bila tidak)
+// lalu dioper ke komponen yang butuh. Halaman tetap statis; perubahan dari panel admin
+// memanggil revalidatePath('/') sehingga build ulang terjadi otomatis.
+export default async function Home() {
+  const katalog = await ambilKatalogLanding();
+
   return (
     <>
-      <JsonLd />
+      {/* Pita demo hanya di versi marketplace; produksi tidak berubah. */}
+      {marketplaceAktif() && <PitaDemo />}
+      <JsonLd katalog={katalog} />
       <Header />
 
       <main>
-        <Hero />
-        <ProductGrid />
-        <SambalSection />
+        <Hero katalog={katalog} />
+        <ProductGrid katalog={katalog} />
+        <SambalSection katalog={katalog} />
         <Hampers />
         <WhyUs />
         <HowToOrder />
@@ -33,7 +44,7 @@ export default function Home() {
       </main>
 
       <Footer />
-      <StickyWaBar />
+      <StickyWaBar katalog={katalog} />
     </>
   );
 }

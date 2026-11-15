@@ -17,7 +17,7 @@ import {
 } from '@/lib/laporan';
 
 export const metadata: Metadata = {
-  title: 'Laporan — Panel Admin',
+  title: 'Laporan | Panel Admin',
   robots: { index: false, follow: false },
 };
 

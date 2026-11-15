@@ -9,7 +9,7 @@ import { marketplaceAktif } from '@/lib/mode';
 import FormLacak from './FormLacak';
 
 export const metadata: Metadata = {
-  title: 'Lacak Pesanan — Rempeyek Bu Aviella',
+  title: 'Lacak Pesanan | Peyek Bu Aviella',
   robots: { index: false, follow: false },
 };
 

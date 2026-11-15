@@ -10,7 +10,7 @@ export default function PitaDemo() {
       role="note"
       className="bg-emas px-4 py-2 text-center text-xs font-semibold text-kakao print:hidden"
     >
-      MODE DEMO — data dan ongkir tiruan
+      MODE DEMO: data dan ongkir tiruan
     </div>
   );
 }

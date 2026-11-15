@@ -24,7 +24,7 @@ import { buildWaLink, pesan } from '@/lib/whatsapp';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Pesanan — Rempeyek Bu Aviella',
+  title: 'Pesanan | Peyek Bu Aviella',
   robots: { index: false, follow: false },
 };
 
@@ -136,7 +136,7 @@ export default async function HalamanPesanan({
             </div>
             <div className="flex justify-between">
               <dt className="text-redup">
-                Ongkir ({pesanan.kurir} — {pesanan.layanan})
+                Ongkir ({pesanan.kurir}, {pesanan.layanan})
               </dt>
               <dd className="text-kakao">{formatRupiah(pesanan.ongkir)}</dd>
             </div>
