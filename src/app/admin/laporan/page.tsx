@@ -6,6 +6,7 @@
 
 import type { Metadata } from 'next';
 
+import GrafikBatang from '@/components/admin/GrafikBatang';
 import { dbAdmin, requireAdmin } from '@/lib/admin-sesi';
 import { formatRupiah } from '@/lib/format';
 import {
@@ -80,7 +81,7 @@ export default async function HalamanLaporan({
   const KOLOM = 'rounded-xl border border-kraft-garis bg-krem px-3 py-2 text-kakao';
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-10">
+    <main className="mx-auto max-w-5xl px-6 py-10">
       <h1 className="mb-6 font-judul text-3xl font-bold text-kakao">Laporan penjualan</h1>
 
       <form
@@ -143,6 +144,11 @@ export default async function HalamanLaporan({
         </p>
       ) : (
         <>
+          <section className="mb-8 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5">
+            <h2 className="mb-4 font-judul text-lg font-bold text-kakao">Grafik omzet</h2>
+            <GrafikBatang data={tabel.map((b) => ({ label: b.kunci, nilai: b.omzet }))} />
+          </section>
+
           <section className="mb-8 overflow-x-auto rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas">
             <table className="w-full text-sm">
               <thead>

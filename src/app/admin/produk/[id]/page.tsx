@@ -62,10 +62,12 @@ export default async function HalamanFormProduk({
 
       <form
         action={simpan}
-        className="space-y-5 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6"
+        className="space-y-6"
       >
         <input type="hidden" name="id" value={idTeks} />
 
+        <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6 space-y-5">
+          <h2 className="font-judul text-lg font-bold text-kakao">Informasi produk</h2>
         <div>
           <label htmlFor="nama" className="mb-1 block text-sm font-medium text-kakao">
             Nama produk
@@ -117,6 +119,10 @@ export default async function HalamanFormProduk({
           />
         </div>
 
+        </section>
+
+        <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6 space-y-5">
+          <h2 className="font-judul text-lg font-bold text-kakao">Harga dan kemasan</h2>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="harga" className="mb-1 block text-sm font-medium text-kakao">
@@ -154,6 +160,10 @@ export default async function HalamanFormProduk({
           </div>
         </div>
 
+        </section>
+
+        <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6 space-y-5">
+          <h2 className="font-judul text-lg font-bold text-kakao">Foto</h2>
         <div>
           <label htmlFor="foto" className="mb-1 block text-sm font-medium text-kakao">
             Foto produk
@@ -178,6 +188,8 @@ export default async function HalamanFormProduk({
             {produk !== null && produk.gambar.length > 0 && ' Kosongkan untuk mempertahankan foto saat ini.'}
           </p>
         </div>
+
+        </section>
 
         <TombolAksi>Simpan</TombolAksi>
       </form>

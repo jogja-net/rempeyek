@@ -67,7 +67,7 @@ export default async function HalamanDetailPesanan({
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10">
-      <a href="/admin" className="mb-4 inline-block text-sm text-redup underline underline-offset-4">
+      <a href="/admin/pesanan" className="mb-4 inline-block text-sm text-redup underline underline-offset-4">
         ← Semua pesanan
       </a>
 
