@@ -22,8 +22,8 @@ export default function HalamanToko({ children }: { children: React.ReactNode })
             {site.nama}
           </a>
           <nav aria-label="Navigasi toko" className="flex items-center gap-4 text-isi font-semibold">
-            <a href="/lacak" className="text-kakao no-underline hover:underline">
-              Lacak pesanan
+            <a href="/lacak" className="whitespace-nowrap text-kakao no-underline hover:underline">
+              Lacak<span className="max-[359px]:hidden"> pesanan</span>
             </a>
             <IkonKeranjang />
           </nav>

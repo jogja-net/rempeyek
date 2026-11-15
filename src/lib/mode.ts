@@ -21,3 +21,12 @@ export type Lingkungan = Record<string, string | undefined>;
 export function marketplaceAktif(env: Lingkungan = process.env): boolean {
   return (env.TURSO_DATABASE_URL ?? '').trim() !== '';
 }
+
+/**
+ * Boleh diindeks mesin pencari? Hanya di produksi DAN bila `INDEKS_SITUS=ya`.
+ * Selama demo atau data masih contoh, biarkan `INDEKS_SITUS` kosong. Set ke
+ * `ya` di Vercel (Production) saat toko resmi dibuka untuk pembeli.
+ */
+export function bolehDiindeks(env: Lingkungan = process.env): boolean {
+  return env.VERCEL_ENV === 'production' && (env.INDEKS_SITUS ?? '').trim() === 'ya';
+}

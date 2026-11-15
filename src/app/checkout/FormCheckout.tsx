@@ -233,7 +233,7 @@ export default function FormCheckout({
                     <span className="block text-sm text-redup">Estimasi {o.estimasi}</span>
                   </span>
                 </span>
-                <span className="font-bold text-kakao">{formatRupiah(o.tarif)}</span>
+                <span className="shrink-0 font-bold whitespace-nowrap text-kakao">{formatRupiah(o.tarif)}</span>
               </label>
             ))}
           </fieldset>

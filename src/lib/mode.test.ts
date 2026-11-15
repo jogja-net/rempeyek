@@ -8,7 +8,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { marketplaceAktif } from './mode';
+import { bolehDiindeks, marketplaceAktif } from './mode';
 
 describe('marketplaceAktif', () => {
   it('true di produksi bila database ada', () => {
@@ -37,5 +37,19 @@ describe('marketplaceAktif', () => {
 
   it('false bila TURSO_DATABASE_URL hanya berisi spasi', () => {
     assert.equal(marketplaceAktif({ TURSO_DATABASE_URL: '   ' }), false);
+  });
+});
+
+describe('bolehDiindeks', () => {
+  it('false di produksi tanpa INDEKS_SITUS (masa demo)', () => {
+    assert.equal(bolehDiindeks({ VERCEL_ENV: 'production' }), false);
+  });
+
+  it('true hanya di produksi dengan INDEKS_SITUS=ya', () => {
+    assert.equal(bolehDiindeks({ VERCEL_ENV: 'production', INDEKS_SITUS: 'ya' }), true);
+  });
+
+  it('false di preview walau INDEKS_SITUS=ya', () => {
+    assert.equal(bolehDiindeks({ VERCEL_ENV: 'preview', INDEKS_SITUS: 'ya' }), false);
   });
 });
