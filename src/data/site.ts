@@ -34,6 +34,3 @@ export const site = {
   legalitas: { pirt: null as string | null, halal: null as string | null },
   hampers: { tutupPO: null as string | null, minimalPaket: null as number | null },
 } as const;
-
-// Nomor WA contoh untuk teks placeholder di footer/sticky bar, bukan nomor asli.
-export const WA_PLACEHOLDER = '[NOMOR]';

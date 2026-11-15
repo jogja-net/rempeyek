@@ -8,9 +8,9 @@ export default function PitaDemo() {
   return (
     <div
       role="note"
-      className="bg-emas px-4 py-2 text-center text-xs font-semibold text-kakao print:hidden"
+      className="bg-emas px-4 py-2 text-center text-ket font-semibold text-kakao print:hidden"
     >
-      Ongkir masih perkiraan per zona (belum tarif kurir asli)
+      Ongkir masih perkiraan per zona
     </div>
   );
 }

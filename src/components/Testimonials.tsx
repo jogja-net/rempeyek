@@ -13,7 +13,7 @@ export default function Testimonials() {
   return (
     <section className="border-y border-kraft-garis bg-kertas">
       <div className="mx-auto max-w-[1160px] px-6 py-22">
-        <h2 className="m-0 mb-9 text-[clamp(34px,4.2vw,52px)] leading-[1.05] font-extrabold tracking-[-0.02em]">
+        <h2 className="m-0 mb-9 text-seksi leading-[1.05] font-extrabold tracking-[-0.02em]">
           Kata pembeli
         </h2>
 
@@ -33,14 +33,14 @@ export default function Testimonials() {
                 }`}
               >
                 {item.contoh && (
-                  <span className="w-fit rounded-full bg-emas px-3 py-1 text-[12px] font-bold text-kakao uppercase">
+                  <span className="w-fit rounded-full bg-emas px-3 py-1 text-ket font-bold text-kakao uppercase">
                     Contoh: menunggu testimoni asli
                   </span>
                 )}
 
-                <blockquote className="m-0 text-[19px] leading-[1.5]">{item.kutipan}</blockquote>
+                <blockquote className="m-0 text-lead leading-[1.5]">{item.kutipan}</blockquote>
 
-                <figcaption className="text-[14px] font-semibold text-redup">
+                <figcaption className="text-ket font-semibold text-redup">
                   {item.nama}, {item.kota}
                   {item.produk ? ` · ${item.produk}` : ''}
                 </figcaption>
@@ -50,7 +50,7 @@ export default function Testimonials() {
         </div>
 
         {testimoni.some((item) => item.contoh) && (
-          <p className="mt-6 max-w-[70ch] text-[14px] text-redup">
+          <p className="mt-6 max-w-[70ch] text-ket text-redup">
             Catatan staging: kartu di atas masih berisi teks contoh, belum kutipan pembeli.
             Testimoni asli akan dipasang setelah Bu Aviella memberi izin pemakaian kutipan chat
             pembeli. Section ini tidak akan terbit di produksi selama masih berisi contoh.

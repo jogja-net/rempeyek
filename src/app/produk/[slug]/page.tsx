@@ -42,7 +42,7 @@ export async function generateMetadata({
   if (produk === null) return { title: 'Produk tidak ditemukan' };
 
   // Judul ≤ 60 karakter: nama produk (mengandung kata kunci) + asal + nama usaha.
-  const judul = `${produk.nama} dari ${site.kota ?? '[KOTA]'} | ${site.nama}`;
+  const judul = `${produk.nama}${site.kota ? ` dari ${site.kota}` : ''} | ${site.nama}`;
   const deskripsi = `${produk.deskripsi} Digoreng tipis, dikemas setelah dingin. ${formatRupiah(produk.harga)} per ${formatBerat(produk.berat_gram)}. Pesan lewat keranjang atau WhatsApp.`;
   const url = `/produk/${produk.slug}`;
 
@@ -125,10 +125,7 @@ export default async function HalamanProduk({ params }: { params: Promise<{ slug
               // eslint-disable-next-line @next/next/no-img-element
               <img src={produk.gambar[0]} alt={produk.nama} className="h-full w-full object-cover" />
             ) : (
-              <>
-                <PeyekIllustration warnaIsian={produk.warna_isian} className="h-[200px] w-[260px]" />
-                <span className="absolute bottom-3 left-4 text-[12px] font-semibold text-redup">[FOTO ASLI]</span>
-              </>
+              <PeyekIllustration warnaIsian={produk.warna_isian} className="h-[200px] w-[260px]" />
             )}
           </div>
 

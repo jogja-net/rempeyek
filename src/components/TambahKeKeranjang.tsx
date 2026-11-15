@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { useKeranjang } from './KeranjangProvider';
 
 const GAYA_BAWAAN =
-  'inline-flex min-h-11 items-center rounded-full border-2 border-cabai px-[18px] text-[15px] font-bold text-cabai hover:bg-cabai hover:text-white disabled:cursor-not-allowed disabled:border-kraft-garis disabled:bg-kraft disabled:text-redup disabled:hover:bg-kraft disabled:hover:text-redup';
+  'inline-flex min-h-11 items-center rounded-full border-2 border-cabai px-[18px] text-isi font-bold whitespace-nowrap text-cabai hover:bg-cabai hover:text-white disabled:cursor-not-allowed disabled:border-kraft-garis disabled:bg-kraft disabled:text-redup disabled:hover:bg-kraft disabled:hover:text-redup';
 
 export default function TambahKeKeranjang({
   produkId,

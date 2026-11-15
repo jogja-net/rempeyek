@@ -1,17 +1,17 @@
 // src/lib/format.ts
 
 /**
- * Format angka jadi "Rp 12.500". Nilai `null` → placeholder "[HARGA]"
- * supaya data yang belum diisi terlihat jelas di staging (HANDOFF §4).
+ * Format angka jadi "Rp 12.500". Nilai `null` → "Tanya harga", supaya pembeli
+ * tahu harus bertanya, bukan melihat kode kosong.
  */
 export function formatRupiah(nilai: number | null | undefined): string {
-  if (nilai === null || nilai === undefined) return '[HARGA]';
+  if (nilai === null || nilai === undefined) return 'Tanya harga';
   return `Rp ${nilai.toLocaleString('id-ID')}`;
 }
 
-/** Berat dalam gram. `null` → "[BERAT]". */
+/** Berat dalam gram. `null` → teks kosong. */
 export function formatBerat(gram: number | null | undefined): string {
-  if (gram === null || gram === undefined) return '[BERAT] g';
+  if (gram === null || gram === undefined) return '';
   return `${gram.toLocaleString('id-ID')} g`;
 }
 

@@ -1,11 +1,10 @@
-import { site, WA_PLACEHOLDER } from '@/data/site';
-import { atau } from '@/lib/format';
+import { site } from '@/data/site';
 import { waUmum } from '@/lib/whatsapp';
 
 // Footer kakao (HANDOFF §7.11). Link yang null TIDAK dirender.
 export default function Footer() {
   const tahun = new Date().getFullYear();
-  const nomorTeks = site.whatsapp ? `+${site.whatsapp}` : WA_PLACEHOLDER;
+  const nomorTeks = site.whatsapp ? `+${site.whatsapp}` : null;
 
   // NAP (Name, Address, Phone) harus sama persis dengan Google Business Profile (PRD §7).
   const tautanSosmed = [
@@ -16,18 +15,20 @@ export default function Footer() {
 
   return (
     <footer className="bg-kakao text-redup-terang">
-      <div className="mx-auto grid max-w-[1160px] grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-8 px-6 pt-14 pb-10 text-[15px]">
+      <div className="mx-auto grid max-w-[1160px] grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-8 px-6 pt-14 pb-10 text-isi">
         <div className="flex flex-col gap-2">
-          <span className="font-judul text-[22px] font-extrabold text-krem">{site.nama}</span>
-          <span>{atau(site.alamat, '[ALAMAT LENGKAP]')}</span>
-          <span>Buka {atau(site.jamLayanan, '[HARI & JAM]')}</span>
+          <span className="font-judul text-kartu font-extrabold text-krem">{site.nama}</span>
+          {site.alamat && <span>{site.alamat}</span>}
+          {site.jamLayanan && <span>Buka {site.jamLayanan}</span>}
         </div>
 
         <div className="flex flex-col gap-2">
           <span className="font-bold text-krem">Pesan</span>
-          <a href={waUmum()} target="_blank" rel="noopener" className="text-emas">
-            WhatsApp {nomorTeks}
-          </a>
+          {nomorTeks && (
+            <a href={waUmum()} target="_blank" rel="noopener" className="text-emas">
+              WhatsApp {nomorTeks}
+            </a>
+          )}
           {site.shopee && (
             <a href={site.shopee} target="_blank" rel="noopener" className="text-emas">
               Shopee {site.shopee}
@@ -48,7 +49,7 @@ export default function Footer() {
         )}
       </div>
 
-      <div className="mx-auto max-w-[1160px] px-6 pb-8 text-[13px] text-[#B8A07C]">
+      <div className="mx-auto max-w-[1160px] px-6 pb-8 text-ket text-[#B8A07C]">
         © {tahun} {site.nama}
       </div>
     </footer>

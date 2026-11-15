@@ -30,7 +30,7 @@ export default function IkonKeranjang() {
         <path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6" />
       </svg>
       {tampil && (
-        <span className="absolute -top-0.5 -right-0.5 min-w-5 rounded-full bg-cabai px-1 text-center text-[12px] leading-5 font-bold text-white">
+        <span className="absolute -top-0.5 -right-0.5 min-w-5 rounded-full bg-cabai px-1 text-center text-ket leading-5 font-bold text-white">
           {jumlah > 99 ? '99+' : jumlah}
         </span>
       )}

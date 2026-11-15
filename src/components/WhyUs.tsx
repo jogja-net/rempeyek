@@ -19,14 +19,14 @@ export default function WhyUs() {
   return (
     <section className="bg-kraft">
       <div className="mx-auto max-w-[1160px] px-6 py-24">
-        <h2 className="m-0 mb-10 text-[clamp(34px,4.2vw,52px)] leading-[1.05] font-extrabold tracking-[-0.02em]">
+        <h2 className="m-0 mb-10 text-seksi leading-[1.05] font-extrabold tracking-[-0.02em]">
           Kenapa pesan langsung
         </h2>
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-8">
           {alasan.map((item) => (
             <div key={item.judul} className="flex flex-col gap-3 border-t-[3px] border-kakao pt-5">
-              <h3 className="m-0 text-[21px] font-bold">{item.judul}</h3>
+              <h3 className="m-0 text-kartu font-bold">{item.judul}</h3>
               <p className="m-0 text-redup">{item.isi}</p>
             </div>
           ))}
