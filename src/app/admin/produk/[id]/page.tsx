@@ -43,8 +43,8 @@ export default async function HalamanFormProduk({
   const pesanGalat = (Array.isArray(galat) ? galat[0] : galat)?.slice(0, 200);
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
-      <a href="/admin/produk" className="mb-4 inline-block text-sm text-redup underline underline-offset-4">
+    <main className="mx-auto max-w-2xl px-4 py-6 md:px-6 md:py-10">
+      <a href="/admin/produk" className="mb-2 inline-flex min-h-11 items-center text-sm text-redup underline underline-offset-4">
         ← Semua produk
       </a>
       <h1 className="mb-6 font-judul text-3xl font-bold text-kakao">

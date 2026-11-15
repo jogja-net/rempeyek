@@ -82,7 +82,7 @@ export default async function HalamanLaporan({
   const KOLOM = 'rounded-xl border border-kraft-garis bg-krem px-3 py-2 text-kakao';
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-10">
+    <main className="mx-auto max-w-5xl px-4 py-6 md:px-6 md:py-10">
       <JudulHalaman judul="Laporan penjualan" deskripsi="Omzet dari pesanan yang sudah dibayar, menurut tanggal pembayaran." />
 
       <form

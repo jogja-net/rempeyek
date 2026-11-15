@@ -39,7 +39,7 @@ export default async function HalamanProduk({
   const produk = await daftarProdukAdmin(dbAdmin());
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-10">
+    <main className="mx-auto max-w-5xl px-4 py-6 md:px-6 md:py-10">
       <JudulHalaman judul="Produk" deskripsi="Atur harga, status, dan foto. Produk yang sudah pernah dipesan hanya diarsipkan.">
         <a
           href="/admin/produk/baru"
@@ -64,8 +64,8 @@ export default async function HalamanProduk({
         </p>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-kraft-garis bg-kertas">
-          <table className="w-full text-sm tabular-nums">
-            <thead className="bg-kraft/30 text-xs">
+          <table className="w-full text-sm tabular-nums max-md:block">
+            <thead className="bg-kraft/30 text-xs max-md:hidden">
               <tr className="border-b border-kraft-garis text-left text-redup">
                 <th className="px-5 py-2.5 font-semibold">Produk</th>
                 <th className="px-5 py-2.5 font-semibold">Kategori</th>
@@ -74,13 +74,13 @@ export default async function HalamanProduk({
                 <th className="px-5 py-2.5 font-semibold">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="max-md:block">
               {produk.map((p) => (
                 <tr
                   key={p.id}
-                  className={`border-b border-kraft-garis last:border-0 hover:bg-kraft/30 ${p.diarsipkan ? 'bg-kraft/40' : ''}`}
+                  className={`border-b border-kraft-garis last:border-0 hover:bg-kraft/30 max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-3 max-md:gap-y-1 max-md:px-4 max-md:py-3 ${p.diarsipkan ? 'bg-kraft/40' : ''}`}
                 >
-                  <td className="px-5 py-3">
+                  <td className="px-5 py-3 max-md:p-0 max-md:order-1 max-md:basis-full">
                     <a href={`/admin/produk/${p.id}`} className="flex items-center gap-3">
                       {p.gambar.length > 0 ? (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -96,10 +96,10 @@ export default async function HalamanProduk({
                       <span className="font-semibold text-kakao underline-offset-4 hover:underline">{p.nama}</span>
                     </a>
                   </td>
-                  <td className="px-5 py-3 text-redup">{p.kategori === 'sambal' ? 'Sambal' : 'Peyek'}</td>
-                  <td className="whitespace-nowrap px-5 py-3 text-redup">{formatBerat(p.berat_gram)}</td>
-                  <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao">{formatRupiah(p.harga)}</td>
-                  <td className="px-5 py-3">
+                  <td className="px-5 py-3 text-redup max-md:p-0 max-md:order-2 max-md:text-xs">{p.kategori === 'sambal' ? 'Sambal' : 'Peyek'}</td>
+                  <td className="whitespace-nowrap px-5 py-3 text-redup max-md:p-0 max-md:order-3 max-md:flex-1 max-md:text-xs">{formatBerat(p.berat_gram)}</td>
+                  <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao max-md:p-0 max-md:order-4">{formatRupiah(p.harga)}</td>
+                  <td className="px-5 py-3 max-md:p-0 max-md:order-5">
                     <span
                       className={`inline-block whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold ${
                         p.diarsipkan

@@ -9,6 +9,7 @@
 
 import { notFound } from 'next/navigation';
 
+import BarBawah from '@/components/admin/BarBawah';
 import Ikon from '@/components/admin/Ikon';
 import MenuAdmin from '@/components/admin/MenuAdmin';
 import PitaDemo from '@/components/PitaDemo';
@@ -68,19 +69,30 @@ export default async function LayoutAdmin({ children }: { children: React.ReactN
     <>
       <PitaDemo />
 
-      {/* HP: bar atas + menu lipat (<details> bawaan browser, tanpa JS). */}
-      <details className="border-b border-kraft-garis bg-kertas md:hidden print:hidden">
-        <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3">
-          <Merek />
-          <span aria-hidden="true" className="text-xl text-redup">
-            ☰
-          </span>
-        </summary>
-        <div className="space-y-4 border-t border-kraft-garis px-3 py-4">
-          <MenuAdmin />
-          <TautanBawah />
+      {/* HP: bar atas ringkas; menu utama ada di bar bawah (BarBawah). */}
+      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-kraft-garis bg-kertas px-4 py-2 md:hidden print:hidden">
+        <Merek />
+        <div className="flex">
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Lihat toko"
+            className="grid h-11 w-11 place-items-center rounded-[10px] text-redup hover:bg-kraft/60"
+          >
+            <Ikon nama="toko" className="h-5 w-5" />
+          </a>
+          <form action={keluar}>
+            <button
+              type="submit"
+              aria-label="Keluar"
+              className="grid h-11 w-11 place-items-center rounded-[10px] text-redup hover:bg-kraft/60"
+            >
+              <Ikon nama="keluar" className="h-5 w-5" />
+            </button>
+          </form>
         </div>
-      </details>
+      </header>
 
       <div className="md:flex">
         <aside className="hidden w-64 shrink-0 border-r border-kraft-garis bg-kertas md:sticky md:top-0 md:block md:h-screen md:self-start print:hidden">
@@ -94,8 +106,10 @@ export default async function LayoutAdmin({ children }: { children: React.ReactN
             </div>
           </div>
         </aside>
-        <div className="min-w-0 flex-1">{children}</div>
+        <div className="min-w-0 flex-1 max-md:pb-20">{children}</div>
       </div>
+
+      <BarBawah />
     </>
   );
 }

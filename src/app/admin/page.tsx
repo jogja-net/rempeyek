@@ -63,7 +63,7 @@ export default async function Dashboard() {
   ];
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-10">
+    <main className="mx-auto max-w-5xl px-4 py-6 md:px-6 md:py-10">
       <JudulHalaman judul="Dashboard" deskripsi="Ringkasan penjualan dan hal yang perlu Anda tangani." />
 
       <div className="mb-6 grid gap-4 lg:grid-cols-3">
@@ -107,7 +107,7 @@ export default async function Dashboard() {
       <section className="rounded-2xl border border-kraft-garis bg-kertas">
         <div className="flex items-center justify-between px-5 py-4">
           <h2 className="font-judul text-base font-bold text-kakao">Pesanan terbaru</h2>
-          <a href="/admin/pesanan" className="text-sm text-redup underline underline-offset-4 hover:text-kakao">
+          <a href="/admin/pesanan" className="inline-flex min-h-11 items-center text-sm text-redup underline underline-offset-4 hover:text-kakao">
             Lihat semua pesanan
           </a>
         </div>
@@ -117,8 +117,8 @@ export default async function Dashboard() {
           </p>
         ) : (
           <div className="overflow-x-auto border-t border-kraft-garis">
-            <table className="w-full text-sm tabular-nums">
-              <thead className="bg-kraft/30 text-xs">
+            <table className="w-full text-sm tabular-nums max-md:block">
+              <thead className="bg-kraft/30 text-xs max-md:hidden">
                 <tr className="text-left text-redup">
                   <th className="px-5 py-2.5 font-semibold">Nomor</th>
                   <th className="px-5 py-2.5 font-semibold">Pembeli</th>
@@ -126,20 +126,20 @@ export default async function Dashboard() {
                   <th className="px-5 py-2.5 font-semibold">Status</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="max-md:block">
                 {pesanan.slice(0, 5).map((p) => (
-                  <tr key={p.id} className="border-t border-kraft-garis transition-colors duration-150 hover:bg-kraft/30">
-                    <td className="whitespace-nowrap px-5 py-3">
+                  <tr key={p.id} className="border-t border-kraft-garis transition-colors duration-150 hover:bg-kraft/30 max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-3 max-md:gap-y-1 max-md:px-4 max-md:py-3">
+                    <td className="whitespace-nowrap px-5 py-3 max-md:p-0 max-md:order-1 max-md:flex-1">
                       <a href={`/admin/pesanan/${p.id}`} className="font-semibold text-kakao underline-offset-4 hover:underline">
                         {p.nomor}
                       </a>
                     </td>
-                    <td className="px-5 py-3 text-kakao">
+                    <td className="px-5 py-3 text-kakao max-md:p-0 max-md:order-3 max-md:basis-full">
                       {p.nama}
                       <span className="block text-xs text-redup">{formatWaktuWib(p.dibuat)}</span>
                     </td>
-                    <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao">{formatRupiah(p.total)}</td>
-                    <td className="px-5 py-3">
+                    <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao max-md:p-0 max-md:order-2">{formatRupiah(p.total)}</td>
+                    <td className="px-5 py-3 max-md:p-0 max-md:order-4">
                       <LencanaStatus status={p.status} admin />
                     </td>
                   </tr>

@@ -69,7 +69,7 @@ export default async function HalamanPesanan({
       key={tujuan}
       href={tujuan}
       aria-current={aktif ? 'page' : undefined}
-      className={`whitespace-nowrap rounded-full border px-4 py-1.5 text-sm ${
+      className={`whitespace-nowrap rounded-full border px-4 py-2.5 text-sm md:py-1.5 ${
         aktif
           ? 'border-emas bg-emas/25 font-semibold text-kakao'
           : 'border-kraft-garis bg-kertas text-redup hover:bg-kraft/60'
@@ -80,7 +80,7 @@ export default async function HalamanPesanan({
   );
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-10">
+    <main className="mx-auto max-w-5xl px-4 py-6 md:px-6 md:py-10">
       <JudulHalaman judul="Pesanan" deskripsi="Cari pesanan, lalu buka untuk menandai dibayar, mengirim, atau mencetak resi." />
 
       <form method="get" action="/admin/pesanan" className="mb-4 flex flex-wrap gap-2">
@@ -91,17 +91,17 @@ export default async function HalamanPesanan({
           defaultValue={q}
           placeholder="Cari nomor, nama, atau HP"
           aria-label="Cari pesanan"
-          className="min-w-0 flex-1 rounded-xl border border-kraft-garis bg-kertas px-4 py-2 text-sm text-kakao sm:max-w-sm"
+          className="min-w-0 flex-1 rounded-xl border border-kraft-garis bg-kertas px-4 py-2.5 text-sm text-kakao sm:max-w-sm"
         />
         <button
           type="submit"
-          className="rounded-xl bg-cabai px-5 py-2 text-sm font-semibold text-kertas transition-colors hover:bg-cabai-tua"
+          className="rounded-xl bg-cabai px-5 py-2.5 text-sm font-semibold text-kertas transition-colors hover:bg-cabai-tua"
         >
           Cari
         </button>
       </form>
 
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="-mx-4 mb-6 flex gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {tab(href({ q }), 'Semua', status === undefined)}
         {URUTAN_FILTER.map((s) => tab(href({ status: s, q }), LABEL_STATUS[s], status === s))}
       </div>
@@ -112,8 +112,8 @@ export default async function HalamanPesanan({
         </p>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-kraft-garis bg-kertas">
-          <table className="w-full text-sm tabular-nums">
-            <thead className="bg-kraft/30 text-xs">
+          <table className="w-full text-sm tabular-nums max-md:block">
+            <thead className="bg-kraft/30 text-xs max-md:hidden">
               <tr className="border-b border-kraft-garis text-left text-redup">
                 <th className="px-5 py-2.5 font-semibold">Nomor</th>
                 <th className="px-5 py-2.5 font-semibold">Pembeli</th>
@@ -122,20 +122,20 @@ export default async function HalamanPesanan({
                 <th className="px-5 py-2.5 font-semibold">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="max-md:block">
               {tampil.map((p) => (
-                <tr key={p.id} className="border-b border-kraft-garis transition-colors duration-150 last:border-0 hover:bg-kraft/30">
-                  <td className="whitespace-nowrap px-5 py-3">
+                <tr key={p.id} className="border-b border-kraft-garis transition-colors duration-150 last:border-0 hover:bg-kraft/30 max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-3 max-md:gap-y-1 max-md:px-4 max-md:py-3">
+                  <td className="whitespace-nowrap px-5 py-3 max-md:p-0 max-md:order-1 max-md:flex-1">
                     <a href={`/admin/pesanan/${p.id}`} className="font-semibold text-kakao underline-offset-4 hover:underline">
                       {p.nomor}
                     </a>
                   </td>
-                  <td className="px-5 py-3 text-kakao">{p.nama}</td>
-                  <td className="whitespace-nowrap px-5 py-3 text-redup">{formatWaktuWib(p.dibuat)}</td>
-                  <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao">
+                  <td className="px-5 py-3 text-kakao max-md:p-0 max-md:order-3 max-md:basis-full">{p.nama}</td>
+                  <td className="whitespace-nowrap px-5 py-3 text-redup max-md:p-0 max-md:order-4 max-md:flex-1 max-md:text-xs">{formatWaktuWib(p.dibuat)}</td>
+                  <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao max-md:p-0 max-md:order-2">
                     {formatRupiah(p.total)}
                   </td>
-                  <td className="px-5 py-3">
+                  <td className="px-5 py-3 max-md:p-0 max-md:order-5">
                     <LencanaStatus status={p.status} admin />
                   </td>
                 </tr>
@@ -147,11 +147,11 @@ export default async function HalamanPesanan({
 
       {jumlahHal > 1 && (
         <nav aria-label="Halaman" className="mt-4 flex items-center justify-between text-sm text-redup">
-          {hal > 1 ? <a href={href({ status, q, hal: hal - 1 })} className="underline underline-offset-4">← Sebelumnya</a> : <span />}
+          {hal > 1 ? <a href={href({ status, q, hal: hal - 1 })} className="inline-block py-2 underline underline-offset-4">← Sebelumnya</a> : <span />}
           <span>
             Halaman {hal} dari {jumlahHal} · {pesanan.length} pesanan
           </span>
-          {hal < jumlahHal ? <a href={href({ status, q, hal: hal + 1 })} className="underline underline-offset-4">Berikutnya →</a> : <span />}
+          {hal < jumlahHal ? <a href={href({ status, q, hal: hal + 1 })} className="inline-block py-2 underline underline-offset-4">Berikutnya →</a> : <span />}
         </nav>
       )}
     </main>
