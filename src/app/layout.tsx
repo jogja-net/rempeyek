@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/next';
 import { site } from '@/data/site';
 import { KeranjangProvider } from '@/components/KeranjangProvider';
-import { marketplaceAktif } from '@/lib/mode';
+import { bolehDiindeks, marketplaceAktif } from '@/lib/mode';
 import './globals.css';
 
 // Font di-self-host dari berkas lokal, bukan diambil dari Google saat build.
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
   },
   robots: {
     // Google hanya boleh mengindeks versi produksi.
-    index: process.env.VERCEL_ENV === 'production',
-    follow: process.env.VERCEL_ENV === 'production',
+    index: bolehDiindeks(),
+    follow: bolehDiindeks(),
   },
 };
 

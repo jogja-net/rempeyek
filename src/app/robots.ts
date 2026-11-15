@@ -1,11 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { site } from '@/data/site';
+import { bolehDiindeks } from '@/lib/mode';
 
-// robots.txt (HANDOFF §8): staging & preview TIDAK boleh diindeks.
+// robots.txt (HANDOFF §8): staging, preview, dan produksi masa demo TIDAK boleh diindeks.
 export default function robots(): MetadataRoute.Robots {
-  const isProduksi = process.env.VERCEL_ENV === 'production';
-
-  if (!isProduksi) {
+  if (!bolehDiindeks()) {
     return {
       rules: [{ userAgent: '*', disallow: '/' }],
     };
