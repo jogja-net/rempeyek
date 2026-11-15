@@ -31,7 +31,7 @@ export default async function HalamanCheckout() {
   return (
     <HalamanToko>
       <main className="mx-auto max-w-3xl px-6 py-10">
-        <h1 className="mb-6 font-judul text-3xl font-extrabold text-kakao">Checkout</h1>
+        <h1 className="mb-6 font-judul text-seksi font-extrabold text-kakao">Checkout</h1>
         <FormCheckout katalog={katalog} daftarProvinsi={daftarProvinsi} />
       </main>
     </HalamanToko>

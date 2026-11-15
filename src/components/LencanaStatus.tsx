@@ -41,7 +41,7 @@ export default function LencanaStatus({
   }
   return (
     <span
-      className={`inline-block whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold ${WARNA[status]}`}
+      className={`inline-block whitespace-nowrap rounded-full px-3 py-1 text-ket font-semibold ${WARNA[status]}`}
     >
       {LABEL_STATUS[status]}
     </span>

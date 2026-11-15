@@ -59,23 +59,23 @@ export default async function HalamanPesanan({
     <HalamanToko>
       <KosongkanKeranjang aktif={barusan} />
       <main className="mx-auto max-w-2xl px-6 py-10">
-        <p className="mb-1 text-sm font-semibold uppercase tracking-[0.15em] text-redup">
+        <p className="mb-1 text-ket font-semibold uppercase tracking-[0.15em] text-redup">
           {barusan ? 'Pesanan diterima' : 'Pesanan'}
         </p>
         <div className="mb-6 flex flex-wrap items-center gap-3">
-          <h1 className="font-judul text-3xl font-extrabold text-kakao">{pesanan.nomor}</h1>
+          <h1 className="font-judul text-seksi font-extrabold text-kakao">{pesanan.nomor}</h1>
           <LencanaStatus status={tampil} />
         </div>
 
         {menunggu && (
           <section className="mb-6 rounded-[var(--radius-kartu)] border-2 border-emas bg-kertas p-6">
-            <h2 className="mb-2 font-judul text-lg font-bold text-kakao">Langkah berikutnya: transfer</h2>
-            <p className="mb-3 text-sm text-redup">
+            <h2 className="mb-2 font-judul text-lead font-bold text-kakao">Langkah berikutnya: transfer</h2>
+            <p className="mb-3 text-isi text-redup">
               Transfer tepat sejumlah total di bawah ini, lalu kirim bukti transfernya lewat WhatsApp.
               Pesanan yang belum dibayar lebih dari 24 jam bisa dianggap kedaluwarsa, tetapi tetap
               bisa diproses bila Anda menghubungi kami.
             </p>
-            <dl className="mb-4 space-y-1 rounded-xl bg-krem p-4 text-sm">
+            <dl className="mb-4 space-y-1 rounded-xl bg-krem p-4 text-isi">
               <div className="flex justify-between gap-4">
                 <dt className="text-redup">Bank</dt>
                 <dd className="font-semibold text-kakao">{site.rekening.bank}</dd>
@@ -88,9 +88,9 @@ export default async function HalamanPesanan({
                 <dt className="text-redup">Atas nama</dt>
                 <dd className="font-semibold text-kakao">{site.rekening.atasNama}</dd>
               </div>
-              <div className="flex justify-between gap-4 border-t border-kraft-garis pt-2 text-base">
+              <div className="flex justify-between gap-4 border-t border-kraft-garis pt-2 text-isi">
                 <dt className="font-semibold text-kakao">Total transfer</dt>
-                <dd className="font-bold text-kakao">{formatRupiah(pesanan.total)}</dd>
+                <dd className="whitespace-nowrap font-bold text-kakao">{formatRupiah(pesanan.total)}</dd>
               </div>
             </dl>
             <a
@@ -101,14 +101,14 @@ export default async function HalamanPesanan({
             >
               Kirim bukti via WhatsApp
             </a>
-            <p className="mt-3 text-xs text-redup">
+            <p className="mt-3 text-ket text-redup">
               Ini mode demo: rekening di atas contoh, jangan transfer uang sungguhan.
             </p>
           </section>
         )}
 
         {!menunggu && pesanan.resi !== null && (
-          <p className="mb-6 rounded-xl border border-kraft-garis bg-kertas px-4 py-3 text-sm text-kakao">
+          <p className="mb-6 rounded-xl border border-kraft-garis bg-kertas px-4 py-3 text-isi text-kakao">
             Nomor resi: <span className="font-mono font-bold">{pesanan.resi}</span> ·{' '}
             <a href="/lacak" className="underline underline-offset-4">
               Lacak pesanan
@@ -117,37 +117,37 @@ export default async function HalamanPesanan({
         )}
 
         <section className="mb-6 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6">
-          <h2 className="mb-1 font-judul text-lg font-bold text-kakao">Rincian</h2>
-          <p className="mb-3 text-sm text-redup">Atas nama {pesanan.nama}</p>
-          <ul className="divide-y divide-kraft-garis text-sm">
+          <h2 className="mb-1 font-judul text-lead font-bold text-kakao">Rincian</h2>
+          <p className="mb-3 text-ket text-redup">Atas nama {pesanan.nama}</p>
+          <ul className="divide-y divide-kraft-garis text-isi">
             {pesanan.items.map((i) => (
               <li key={i.id} className="flex justify-between gap-4 py-2">
                 <span className="text-kakao">
                   {i.nama} <span className="text-redup">× {i.jumlah}</span>
                 </span>
-                <span className="text-kakao">{formatRupiah(i.harga * i.jumlah)}</span>
+                <span className="whitespace-nowrap text-kakao">{formatRupiah(i.harga * i.jumlah)}</span>
               </li>
             ))}
           </ul>
-          <dl className="mt-4 space-y-1 border-t border-kraft-garis pt-4 text-sm">
+          <dl className="mt-4 space-y-1 border-t border-kraft-garis pt-4 text-isi">
             <div className="flex justify-between">
               <dt className="text-redup">Subtotal</dt>
-              <dd className="text-kakao">{formatRupiah(pesanan.subtotal)}</dd>
+              <dd className="whitespace-nowrap text-kakao">{formatRupiah(pesanan.subtotal)}</dd>
             </div>
             <div className="flex justify-between">
               <dt className="text-redup">
                 Ongkir ({pesanan.kurir}, {pesanan.layanan})
               </dt>
-              <dd className="text-kakao">{formatRupiah(pesanan.ongkir)}</dd>
+              <dd className="whitespace-nowrap text-kakao">{formatRupiah(pesanan.ongkir)}</dd>
             </div>
-            <div className="flex justify-between text-base font-bold">
+            <div className="flex justify-between text-isi font-bold">
               <dt className="text-kakao">Total</dt>
-              <dd className="text-kakao">{formatRupiah(pesanan.total)}</dd>
+              <dd className="whitespace-nowrap text-kakao">{formatRupiah(pesanan.total)}</dd>
             </div>
           </dl>
         </section>
 
-        <p className="text-sm text-redup">
+        <p className="text-isi text-redup">
           Simpan nomor pesanan <span className="font-mono font-semibold text-kakao">{pesanan.nomor}</span>.
           Setelah barang dikirim, Anda bisa melacaknya di{' '}
           <a href="/lacak" className="underline underline-offset-4">

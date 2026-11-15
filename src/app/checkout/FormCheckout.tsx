@@ -129,16 +129,16 @@ export default function FormCheckout({
       }}
     >
       <section className={KARTU}>
-        <h2 className="mb-4 font-judul text-lg font-bold text-kakao">Data penerima</h2>
+        <h2 className="mb-4 font-judul text-lead font-bold text-kakao">Data penerima</h2>
         <div className="space-y-4">
           <div>
-            <label htmlFor="nama" className="mb-1 block text-sm font-medium text-kakao">
+            <label htmlFor="nama" className="mb-1 block text-isi font-medium text-kakao">
               Nama lengkap
             </label>
             <input id="nama" name="nama" required minLength={2} maxLength={80} autoComplete="name" className={KOLOM} />
           </div>
           <div>
-            <label htmlFor="hp" className="mb-1 block text-sm font-medium text-kakao">
+            <label htmlFor="hp" className="mb-1 block text-isi font-medium text-kakao">
               Nomor HP / WhatsApp
             </label>
             <input
@@ -154,7 +154,7 @@ export default function FormCheckout({
             />
           </div>
           <div>
-            <label htmlFor="alamat" className="mb-1 block text-sm font-medium text-kakao">
+            <label htmlFor="alamat" className="mb-1 block text-isi font-medium text-kakao">
               Alamat lengkap
             </label>
             <textarea
@@ -170,7 +170,7 @@ export default function FormCheckout({
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="provinsi" className="mb-1 block text-sm font-medium text-kakao">
+              <label htmlFor="provinsi" className="mb-1 block text-isi font-medium text-kakao">
                 Provinsi
               </label>
               <select
@@ -189,7 +189,7 @@ export default function FormCheckout({
               </select>
             </div>
             <div>
-              <label htmlFor="kota" className="mb-1 block text-sm font-medium text-kakao">
+              <label htmlFor="kota" className="mb-1 block text-isi font-medium text-kakao">
                 Kota / kabupaten
               </label>
               <input id="kota" name="kota" required maxLength={80} className={KOLOM} />
@@ -199,13 +199,13 @@ export default function FormCheckout({
       </section>
 
       <section className={KARTU}>
-        <h2 className="mb-4 font-judul text-lg font-bold text-kakao">Pengiriman</h2>
+        <h2 className="mb-4 font-judul text-lead font-bold text-kakao">Pengiriman</h2>
         {provinsi === '' ? (
-          <p className="text-sm text-redup">Pilih provinsi untuk melihat ongkir.</p>
+          <p className="text-isi text-redup">Pilih provinsi untuk melihat ongkir.</p>
         ) : memuatOngkir ? (
-          <p className="text-sm text-redup">Menghitung ongkir…</p>
+          <p className="text-isi text-redup">Menghitung ongkir…</p>
         ) : galatOngkir !== null ? (
-          <p role="alert" className="text-sm text-cabai-tua">
+          <p role="alert" className="text-isi text-cabai-tua">
             {galatOngkir}
           </p>
         ) : (
@@ -230,7 +230,7 @@ export default function FormCheckout({
                     <span className="block font-semibold capitalize text-kakao">
                       {o.kurir}, {o.kode}
                     </span>
-                    <span className="block text-sm text-redup">Estimasi {o.estimasi}</span>
+                    <span className="block text-ket text-redup">Estimasi {o.estimasi}</span>
                   </span>
                 </span>
                 <span className="shrink-0 font-bold whitespace-nowrap text-kakao">{formatRupiah(o.tarif)}</span>
@@ -241,38 +241,38 @@ export default function FormCheckout({
       </section>
 
       <section className={KARTU}>
-        <h2 className="mb-3 font-judul text-lg font-bold text-kakao">Ringkasan</h2>
-        <ul className="mb-4 divide-y divide-kraft-garis text-sm">
+        <h2 className="mb-3 font-judul text-lead font-bold text-kakao">Ringkasan</h2>
+        <ul className="mb-4 divide-y divide-kraft-garis text-isi">
           {ringkas.baris.map((b) => (
             <li key={b.produkId} className="flex justify-between gap-4 py-2">
               <span className="text-kakao">
                 {b.produk?.nama} <span className="text-redup">× {b.jumlah}</span>
               </span>
-              <span className="text-kakao">{formatRupiah(b.subtotal)}</span>
+              <span className="whitespace-nowrap text-kakao">{formatRupiah(b.subtotal)}</span>
             </li>
           ))}
         </ul>
-        <dl className="space-y-1 border-t border-kraft-garis pt-4 text-sm">
+        <dl className="space-y-1 border-t border-kraft-garis pt-4 text-isi">
           <div className="flex justify-between">
             <dt className="text-redup">Subtotal</dt>
-            <dd className="text-kakao">{formatRupiah(ringkas.subtotal)}</dd>
+            <dd className="whitespace-nowrap text-kakao">{formatRupiah(ringkas.subtotal)}</dd>
           </div>
           <div className="flex justify-between">
             <dt className="text-redup">Ongkir</dt>
-            <dd className="text-kakao">{opsiTerpilih === null ? '-' : formatRupiah(opsiTerpilih.tarif)}</dd>
+            <dd className="whitespace-nowrap text-kakao">{opsiTerpilih === null ? '-' : formatRupiah(opsiTerpilih.tarif)}</dd>
           </div>
-          <div className="flex justify-between text-base font-bold">
+          <div className="flex justify-between text-isi font-bold">
             <dt className="text-kakao">Total</dt>
-            <dd className="text-kakao">{opsiTerpilih === null ? formatRupiah(ringkas.subtotal) : formatRupiah(total)}</dd>
+            <dd className="whitespace-nowrap text-kakao">{opsiTerpilih === null ? formatRupiah(ringkas.subtotal) : formatRupiah(total)}</dd>
           </div>
         </dl>
-        <p className="mt-3 text-xs text-redup">
+        <p className="mt-3 text-ket text-redup">
           Total final dihitung ulang oleh server. Pembayaran lewat transfer; rekening tampil setelah pesanan dibuat.
         </p>
       </section>
 
       {galat !== null && (
-        <p role="alert" className="rounded-xl border border-cabai/30 bg-cabai/10 px-4 py-3 text-sm text-cabai-tua">
+        <p role="alert" className="rounded-xl border border-cabai/30 bg-cabai/10 px-4 py-3 text-isi text-cabai-tua">
           {galat}
         </p>
       )}

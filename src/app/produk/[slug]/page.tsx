@@ -111,7 +111,7 @@ export default async function HalamanProduk({ params }: { params: Promise<{ slug
       ))}
 
       <main className="mx-auto max-w-[1000px] px-6 py-10">
-        <nav aria-label="Jejak halaman" className="mb-6 text-sm text-redup">
+        <nav aria-label="Jejak halaman" className="mb-6 text-ket text-redup">
           <a href="/" className="underline underline-offset-4">
             {site.nama}
           </a>
@@ -130,16 +130,16 @@ export default async function HalamanProduk({ params }: { params: Promise<{ slug
           </div>
 
           <div className="flex flex-col gap-4">
-            <span className="self-start rounded-full bg-kraft px-3.5 py-1.5 text-[14px] font-semibold text-redup">
+            <span className="self-start rounded-full bg-kraft px-3.5 py-1.5 text-ket font-semibold text-redup">
               {LABEL_STATUS[produk.status]}
             </span>
-            <h1 className="m-0 text-[clamp(32px,4.4vw,48px)] leading-[1.05] font-extrabold tracking-[-0.02em]">
+            <h1 className="m-0 text-seksi leading-[1.05] font-extrabold tracking-[-0.02em]">
               {produk.nama}
             </h1>
-            <p className="m-0 text-[18px] text-redup">{produk.deskripsi}</p>
+            <p className="m-0 text-lead text-redup">{produk.deskripsi}</p>
 
             <p className="m-0">
-              <span className="font-judul text-[32px] font-extrabold">{formatRupiah(produk.harga)}</span>{' '}
+              <span className="font-judul text-kartu font-extrabold">{formatRupiah(produk.harga)}</span>{' '}
               <span className="text-redup">per {formatBerat(produk.berat_gram)}</span>
             </p>
 
@@ -148,7 +148,7 @@ export default async function HalamanProduk({ params }: { params: Promise<{ slug
                 produkId={produk.id}
                 nama={produk.nama}
                 status={produk.status}
-                className="inline-flex min-h-14 items-center rounded-full bg-cabai px-8 text-[17px] font-bold text-white hover:bg-cabai-tua disabled:cursor-not-allowed disabled:bg-kraft disabled:text-redup"
+                className="inline-flex min-h-14 items-center rounded-full bg-cabai px-8 text-isi font-bold text-white hover:bg-cabai-tua disabled:cursor-not-allowed disabled:bg-kraft disabled:text-redup"
               />
             </div>
 
@@ -158,7 +158,7 @@ export default async function HalamanProduk({ params }: { params: Promise<{ slug
               <li>Tanpa daftar akun: isi data pengiriman saat checkout.</li>
             </ul>
 
-            <a href="/#varian" className="text-sm text-redup underline underline-offset-4">
+            <a href="/#varian" className="text-isi text-redup underline underline-offset-4">
               Lihat varian peyek lainnya
             </a>
           </div>
