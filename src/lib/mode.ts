@@ -4,8 +4,8 @@
 //
 // Syarat: database dikonfigurasi — tanpa Turso tidak ada yang bisa ditampilkan.
 // (Dulu ada syarat kedua "bukan produksi"; dicabut atas keputusan pemilik
-// 15 Nov 2026 supaya marketplace hidup di produksi. Pita demo tetap tampil
-// selama data masih tiruan.)
+// 15 Nov 2026 supaya marketplace hidup di produksi. Pita tetap tampil
+// selama ongkir masih tarif tiruan per zona.)
 //
 // Dipanggil di setiap halaman/aksi marketplace. Sengaja membaca `env` sebagai
 // argumen supaya bisa diuji tanpa menyentuh `process.env` global.

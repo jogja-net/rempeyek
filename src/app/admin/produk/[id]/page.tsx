@@ -12,10 +12,17 @@ import { ambilProdukById, type ProdukDb } from '@/lib/produk-repo';
 
 import { hapus, simpan } from '../aksi';
 
-export const metadata: Metadata = {
-  title: 'Ubah Produk | Panel Admin',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  return {
+    title: `${id === 'baru' ? 'Tambah' : 'Ubah'} Produk | Panel Admin`,
+    robots: { index: false, follow: false },
+  };
+}
 
 const KOLOM =
   'w-full rounded-xl border border-kraft-garis bg-krem px-4 py-3 text-kakao outline-none focus:border-cabai';
