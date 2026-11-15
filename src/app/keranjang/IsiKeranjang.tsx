@@ -11,7 +11,7 @@ import { formatRupiah } from '@/lib/format';
 import { ringkasKeranjang, type ProdukToko } from '@/lib/keranjang';
 
 const TOMBOL_JUMLAH =
-  'inline-flex h-10 w-10 items-center justify-center rounded-full border border-kraft-garis bg-kertas text-lg font-bold text-kakao hover:bg-kraft disabled:opacity-40';
+  'inline-flex h-10 w-10 items-center justify-center rounded-full border border-kraft-garis bg-kertas text-lead font-bold text-kakao hover:bg-kraft disabled:opacity-40';
 
 export default function IsiKeranjang({ katalog }: { katalog: ProdukToko[] }) {
   const { items, siap, ubahJumlah } = useKeranjang();
@@ -41,7 +41,7 @@ export default function IsiKeranjang({ katalog }: { katalog: ProdukToko[] }) {
       {ringkas.adaMasalah && (
         <p
           role="alert"
-          className="mb-5 rounded-xl border border-cabai/30 bg-cabai/10 px-4 py-3 text-sm text-cabai-tua"
+          className="mb-5 rounded-xl border border-cabai/30 bg-cabai/10 px-4 py-3 text-isi text-cabai-tua"
         >
           Ada produk yang sudah tidak tersedia. Hapus dulu dari keranjang sebelum melanjutkan.
         </p>
@@ -57,17 +57,17 @@ export default function IsiKeranjang({ katalog }: { katalog: ProdukToko[] }) {
               <div>
                 <p className="font-bold text-kakao">{b.produk?.nama ?? 'Produk tidak ditemukan'}</p>
                 {b.tersedia && b.produk ? (
-                  <p className="text-sm text-redup">
+                  <p className="text-ket text-redup">
                     {formatRupiah(b.produk.harga)}
                     {b.produk.status === 'po' && ' · Pre-order'}
                   </p>
                 ) : (
-                  <p className="text-sm font-semibold text-cabai-tua">
+                  <p className="text-isi font-semibold text-cabai-tua">
                     {b.produk === null ? 'Tidak tersedia lagi' : 'Sedang habis'}
                   </p>
                 )}
               </div>
-              {b.tersedia && <p className="font-bold text-kakao">{formatRupiah(b.subtotal)}</p>}
+              {b.tersedia && <p className="font-bold whitespace-nowrap text-kakao">{formatRupiah(b.subtotal)}</p>}
             </div>
 
             <div className="mt-3 flex items-center justify-between gap-3">
@@ -100,7 +100,7 @@ export default function IsiKeranjang({ katalog }: { katalog: ProdukToko[] }) {
               )}
               <button
                 type="button"
-                className="text-sm text-redup underline underline-offset-4 hover:text-cabai-tua"
+                className="text-isi text-redup underline underline-offset-4 hover:text-cabai-tua"
                 onClick={() => ubahJumlah(b.produkId, 0)}
               >
                 Hapus
@@ -113,9 +113,9 @@ export default function IsiKeranjang({ katalog }: { katalog: ProdukToko[] }) {
       <div className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5">
         <div className="mb-1 flex justify-between text-kakao">
           <span>Subtotal</span>
-          <span className="text-lg font-bold">{formatRupiah(ringkas.subtotal)}</span>
+          <span className="text-lead font-bold">{formatRupiah(ringkas.subtotal)}</span>
         </div>
-        <p className="mb-4 text-sm text-redup">Ongkir dihitung di langkah berikutnya.</p>
+        <p className="mb-4 text-ket text-redup">Ongkir dihitung di langkah berikutnya.</p>
 
         {ringkas.adaMasalah || ringkas.subtotal === 0 ? (
           <span

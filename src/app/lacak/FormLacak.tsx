@@ -18,7 +18,7 @@ export default function FormLacak() {
         action={aksi}
         className="mb-6 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6"
       >
-        <label htmlFor="resi" className="mb-1 block text-sm font-medium text-kakao">
+        <label htmlFor="resi" className="mb-1 block text-isi font-medium text-kakao">
           Nomor resi
         </label>
         <div className="flex flex-wrap gap-3">
@@ -45,10 +45,10 @@ export default function FormLacak() {
         {hasil?.jenis === 'ketemu' && (
           <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6">
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <h2 className="font-mono text-xl font-bold text-kakao">{hasil.resi}</h2>
+              <h2 className="font-mono text-kartu font-bold text-kakao">{hasil.resi}</h2>
               <LencanaStatus status={hasil.status} />
             </div>
-            <dl className="mb-4 space-y-1 text-sm">
+            <dl className="mb-4 space-y-1 text-isi">
               <div className="flex justify-between gap-4">
                 <dt className="text-redup">Kurir</dt>
                 <dd className="text-kakao">{hasil.kurir}</dd>
@@ -58,8 +58,8 @@ export default function FormLacak() {
                 <dd className="text-kakao">{formatWaktuWib(hasil.dikirimPada)}</dd>
               </div>
             </dl>
-            <h3 className="mb-1 text-sm font-semibold text-kakao">Isi paket</h3>
-            <ul className="text-sm text-kakao">
+            <h3 className="mb-1 text-isi font-semibold text-kakao">Isi paket</h3>
+            <ul className="text-isi text-kakao">
               {hasil.ringkasan.map((r) => (
                 <li key={r.nama}>
                   {r.nama} × {r.jumlah}
@@ -69,17 +69,17 @@ export default function FormLacak() {
           </section>
         )}
         {hasil?.jenis === 'tidak-ada' && (
-          <p className="rounded-xl border border-kraft-garis bg-kraft px-4 py-3 text-sm text-kakao">
+          <p className="rounded-xl border border-kraft-garis bg-kraft px-4 py-3 text-isi text-kakao">
             Nomor resi tidak ditemukan. Periksa lagi penulisannya.
           </p>
         )}
         {hasil?.jenis === 'dibatasi' && (
-          <p role="alert" className="rounded-xl border border-cabai/30 bg-cabai/10 px-4 py-3 text-sm text-cabai-tua">
+          <p role="alert" className="rounded-xl border border-cabai/30 bg-cabai/10 px-4 py-3 text-isi text-cabai-tua">
             Terlalu banyak percobaan. Coba lagi nanti.
           </p>
         )}
         {hasil?.jenis === 'kosong' && (
-          <p className="rounded-xl border border-kraft-garis bg-kraft px-4 py-3 text-sm text-kakao">
+          <p className="rounded-xl border border-kraft-garis bg-kraft px-4 py-3 text-isi text-kakao">
             Masukkan nomor resi dulu.
           </p>
         )}

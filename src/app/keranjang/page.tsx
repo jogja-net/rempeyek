@@ -30,7 +30,7 @@ export default async function HalamanKeranjang() {
   return (
     <HalamanToko>
       <main className="mx-auto max-w-3xl px-6 py-10">
-        <h1 className="mb-6 font-judul text-3xl font-extrabold text-kakao">Keranjang</h1>
+        <h1 className="mb-6 font-judul text-seksi font-extrabold text-kakao">Keranjang</h1>
         <IsiKeranjang katalog={katalog} />
       </main>
     </HalamanToko>
