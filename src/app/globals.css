@@ -14,6 +14,7 @@
   --color-emas: #f2b33d; /* aksen, badge PO, band CTA */
   --color-cabai: #c8361d; /* CTA utama */
   --color-cabai-tua: #9e2914; /* hover CTA */
+  --color-daun: #3f6b2d; /* status berhasil di admin (dibayar, selesai) */
 
   --font-judul: var(--font-bricolage), system-ui, sans-serif;
   --font-badan: var(--font-jakarta), system-ui, sans-serif;
@@ -24,6 +25,12 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Fokus keyboard selalu terlihat */
+:focus-visible {
+  outline: 2px solid var(--color-cabai);
+  outline-offset: 2px;
 }
 
 body {

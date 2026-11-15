@@ -33,7 +33,7 @@ export default function TombolAksi({
       onClick={(e) => {
         if (konfirmasi !== undefined && !window.confirm(konfirmasi)) e.preventDefault();
       }}
-      className={`rounded-xl px-5 py-3 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${GAYA[gaya]}`}
+      className={`min-h-11 rounded-xl px-5 py-3 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${GAYA[gaya]}`}
     >
       {pending ? 'Memproses…' : children}
     </button>

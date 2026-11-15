@@ -28,7 +28,7 @@ export async function ubahStatus(id: number, aksi: AksiStatus): Promise<void> {
   await requireAdmin();
 
   if (!Number.isInteger(id) || id <= 0 || !AKSI_SAH.includes(aksi)) {
-    redirect('/admin');
+    redirect('/admin/pesanan');
   }
 
   const db = dbAdmin();

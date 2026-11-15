@@ -6,6 +6,8 @@
 
 import type { Metadata } from 'next';
 
+import GrafikBatang from '@/components/admin/GrafikBatang';
+import JudulHalaman from '@/components/admin/JudulHalaman';
 import { dbAdmin, requireAdmin } from '@/lib/admin-sesi';
 import { formatRupiah } from '@/lib/format';
 import {
@@ -80,12 +82,12 @@ export default async function HalamanLaporan({
   const KOLOM = 'rounded-xl border border-kraft-garis bg-krem px-3 py-2 text-kakao';
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-10">
-      <h1 className="mb-6 font-judul text-3xl font-bold text-kakao">Laporan penjualan</h1>
+    <main className="mx-auto max-w-5xl px-4 py-6 md:px-6 md:py-10">
+      <JudulHalaman judul="Laporan penjualan" deskripsi="Omzet dari pesanan yang sudah dibayar, menurut tanggal pembayaran." />
 
       <form
         method="get"
-        className="mb-6 flex flex-wrap items-end gap-4 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5"
+        className="mb-6 flex flex-wrap items-end gap-4 rounded-2xl border border-kraft-garis bg-kertas p-5"
       >
         <div>
           <label htmlFor="per" className="mb-1 block text-sm text-redup">
@@ -127,29 +129,34 @@ export default async function HalamanLaporan({
       </p>
 
       <div className="mb-8 grid grid-cols-2 gap-4">
-        <div className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5">
+        <div className="rounded-2xl border border-kraft-garis bg-kertas p-5">
           <p className="text-sm text-redup">Total omzet</p>
           <p className="font-judul text-2xl font-bold text-kakao">{formatRupiah(totalOmzet)}</p>
         </div>
-        <div className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5">
+        <div className="rounded-2xl border border-kraft-garis bg-kertas p-5">
           <p className="text-sm text-redup">Jumlah pesanan</p>
           <p className="font-judul text-2xl font-bold text-kakao">{totalPesanan}</p>
         </div>
       </div>
 
       {tabel.length === 0 ? (
-        <p className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-8 text-center text-redup">
+        <p className="rounded-2xl border border-kraft-garis bg-kertas p-8 text-center text-redup">
           Belum ada pesanan dibayar pada rentang ini.
         </p>
       ) : (
         <>
-          <section className="mb-8 overflow-x-auto rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas">
-            <table className="w-full text-sm">
-              <thead>
+          <section className="mb-8 rounded-2xl border border-kraft-garis bg-kertas p-5">
+            <h2 className="mb-4 font-judul text-lg font-bold text-kakao">Grafik omzet</h2>
+            <GrafikBatang data={tabel.map((b) => ({ label: b.kunci, nilai: b.omzet }))} />
+          </section>
+
+          <section className="mb-8 overflow-x-auto rounded-2xl border border-kraft-garis bg-kertas">
+            <table className="w-full text-sm tabular-nums">
+              <thead className="bg-kraft/30 text-xs">
                 <tr className="border-b border-kraft-garis text-left text-redup">
-                  <th className="px-5 py-3 font-medium">{per === 'hari' ? 'Tanggal' : 'Bulan'}</th>
-                  <th className="px-5 py-3 text-right font-medium">Pesanan</th>
-                  <th className="px-5 py-3 text-right font-medium">Omzet</th>
+                  <th className="px-5 py-2.5 font-semibold">{per === 'hari' ? 'Tanggal' : 'Bulan'}</th>
+                  <th className="px-5 py-2.5 text-right font-semibold">Pesanan</th>
+                  <th className="px-5 py-2.5 text-right font-semibold">Omzet</th>
                 </tr>
               </thead>
               <tbody>
@@ -164,7 +171,7 @@ export default async function HalamanLaporan({
             </table>
           </section>
 
-          <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5">
+          <section className="rounded-2xl border border-kraft-garis bg-kertas p-5">
             <h2 className="mb-3 font-judul text-lg font-bold text-kakao">5 produk terlaris</h2>
             <ol className="space-y-1 text-sm">
               {terlaris.map((t, i) => (

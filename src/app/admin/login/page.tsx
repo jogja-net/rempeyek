@@ -51,7 +51,7 @@ export default async function HalamanLogin({
 
         <form
           action={masuk}
-          className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6 shadow-sm"
+          className="rounded-2xl border border-kraft-garis bg-kertas p-6 shadow-sm"
         >
           <label className="mb-1 block text-sm font-medium text-kakao" htmlFor="username">
             Username

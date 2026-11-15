@@ -1,102 +1,154 @@
 // src/app/admin/page.tsx
 //
-// Daftar pesanan dengan filter status lewat `?status=`.
-// `requireAdmin()` wajib dipanggil di sini, bukan hanya di layout: layout dan
-// halaman dirender paralel, jadi penjagaan di layout tidak menjamin halaman.
+// Dashboard admin gaya Lapakku. Satu panel gelap (omzet + grafik) jadi titik
+// fokus; di sebelahnya daftar "Perlu tindakan" yang bisa diklik; di bawahnya
+// pesanan terbaru. Daftar pesanan lengkap ada di /admin/pesanan.
+// `requireAdmin()` wajib dipanggil di sini: layout bukan penjaga.
+//
+// ponytail: "Stok Hampir Habis" Lapakku diganti "Produk habis / PO" karena
+// skema kita belum punya stok. Tambahkan kolom stok bila nanti dibutuhkan.
 
 import type { Metadata } from 'next';
 
+import GrafikBatang from '@/components/admin/GrafikBatang';
+import Ikon, { type NamaIkon } from '@/components/admin/Ikon';
+import JudulHalaman from '@/components/admin/JudulHalaman';
 import LencanaStatus from '@/components/LencanaStatus';
 import { dbAdmin, requireAdmin } from '@/lib/admin-sesi';
 import { formatRupiah, formatWaktuWib } from '@/lib/format';
+import { agregasiPenjualan, ambilBarisLaporan, tanggalWib } from '@/lib/laporan';
 import { daftarPesanan } from '@/lib/pesanan-repo';
-import { LABEL_STATUS, type StatusPesanan } from '@/lib/status';
+import { daftarProdukAdmin } from '@/lib/produk-repo';
 
 export const metadata: Metadata = {
-  title: 'Pesanan | Panel Admin',
+  title: 'Dashboard | Panel Admin',
   robots: { index: false, follow: false },
 };
 
-type StatusFilter = StatusPesanan | 'kedaluwarsa';
+const HARI_MS = 24 * 60 * 60 * 1000;
+const HARI_GRAFIK = 14;
+const keTanggal = (ms: number) => new Date(ms).toISOString().slice(0, 10);
 
-const URUTAN_FILTER: StatusFilter[] = [
-  'menunggu_pembayaran',
-  'kedaluwarsa',
-  'dibayar',
-  'dikirim',
-  'selesai',
-  'batal',
-];
-
-function keStatusFilter(nilai: string | undefined): StatusFilter | undefined {
-  return URUTAN_FILTER.find((s) => s === nilai);
-}
-
-export default async function HalamanPesanan({
-  searchParams,
-}: {
-  searchParams: Promise<{ status?: string | string[] }>;
-}) {
+export default async function Dashboard() {
   await requireAdmin();
+  const db = dbAdmin();
 
-  const { status } = await searchParams;
-  const dipilih = keStatusFilter(Array.isArray(status) ? status[0] : status);
+  const hariIni = tanggalWib(new Date().toISOString()) ?? keTanggal(Date.now());
+  const awalBulan = `${hariIni.slice(0, 8)}01`;
+  const awalGrafik = keTanggal(new Date(`${hariIni}T00:00:00Z`).getTime() - (HARI_GRAFIK - 1) * HARI_MS);
 
-  const pesanan = await daftarPesanan(dbAdmin(), dipilih === undefined ? undefined : { status: dipilih });
+  const [pesanan, produk, barisBulan, barisGrafik] = await Promise.all([
+    daftarPesanan(db),
+    daftarProdukAdmin(db),
+    ambilBarisLaporan(db, { dari: awalBulan, sampai: hariIni }),
+    ambilBarisLaporan(db, { dari: awalGrafik, sampai: hariIni }),
+  ]);
 
-  const tab = (href: string, teks: string, aktif: boolean) => (
-    <a
-      key={href}
-      href={href}
-      aria-current={aktif ? 'page' : undefined}
-      className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm ${
-        aktif
-          ? 'border-kakao bg-kakao text-kertas'
-          : 'border-kraft-garis bg-kertas text-redup hover:bg-kraft'
-      }`}
-    >
-      {teks}
-    </a>
-  );
+  const omzetBulan = barisBulan.reduce((j, b) => j + b.total, 0);
+  const pesananHariIni = pesanan.filter((p) => tanggalWib(p.dibuat) === hariIni).length;
+  const menunggu = pesanan.filter((p) => p.status === 'menunggu_pembayaran').length;
+  const perluKirim = pesanan.filter((p) => p.status === 'dibayar').length;
+  const produkHabis = produk.filter((p) => !p.diarsipkan && p.status !== 'tersedia').length;
+
+  const perHari = new Map(agregasiPenjualan(barisGrafik, 'hari').map((b) => [b.kunci, b.omzet]));
+  const grafik = Array.from({ length: HARI_GRAFIK }, (_, i) => {
+    const tgl = keTanggal(new Date(`${awalGrafik}T00:00:00Z`).getTime() + i * HARI_MS);
+    return { label: tgl.slice(5).replace('-', '/'), nilai: perHari.get(tgl) ?? 0 };
+  });
+
+  const tindakan: { teks: string; jumlah: number; href: string; ikon: NamaIkon }[] = [
+    { teks: 'Menunggu bayar', jumlah: menunggu, href: '/admin/pesanan?status=menunggu_pembayaran', ikon: 'waktu' },
+    { teks: 'Perlu dikirim', jumlah: perluKirim, href: '/admin/pesanan?status=dibayar', ikon: 'kirim' },
+    { teks: 'Produk habis / PO', jumlah: produkHabis, href: '/admin/produk', ikon: 'produk' },
+  ];
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-10">
-      <h1 className="mb-6 font-judul text-3xl font-bold text-kakao">Pesanan</h1>
+    <main className="mx-auto max-w-5xl px-4 py-6 md:px-6 md:py-10">
+      <JudulHalaman judul="Dashboard" deskripsi="Ringkasan penjualan dan hal yang perlu Anda tangani." />
 
-      <div className="mb-6 flex flex-wrap gap-2">
-        {tab('/admin', 'Semua', dipilih === undefined)}
-        {URUTAN_FILTER.map((s) => tab(`/admin?status=${s}`, LABEL_STATUS[s], dipilih === s))}
+      <div className="mb-6 grid gap-4 lg:grid-cols-3">
+        <section className="rounded-2xl bg-kakao p-6 text-kertas lg:col-span-2">
+          <p className="text-sm text-redup-terang">Omzet bulan ini</p>
+          <p className="mb-1 font-judul text-4xl font-extrabold tabular-nums">{formatRupiah(omzetBulan)}</p>
+          <p className="mb-6 text-sm text-redup-terang">
+            {pesananHariIni === 0 ? 'Belum ada pesanan masuk hari ini' : `${pesananHariIni} pesanan masuk hari ini`}
+          </p>
+          <GrafikBatang data={grafik} gelap />
+        </section>
+
+        <section className="rounded-2xl border border-kraft-garis bg-kertas p-2">
+          <h2 className="px-3 pb-1 pt-3 font-judul text-base font-bold text-kakao">Perlu tindakan</h2>
+          <ul>
+            {tindakan.map((t) => (
+              <li key={t.teks}>
+                <a
+                  href={t.href}
+                  className="flex items-center gap-3 rounded-xl px-3 py-3 transition-colors duration-150 hover:bg-kraft/40"
+                >
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-kraft/60 text-redup">
+                    <Ikon nama={t.ikon} />
+                  </span>
+                  <span className="min-w-0 flex-1 text-sm text-kakao">{t.teks}</span>
+                  <span
+                    className={`min-w-7 rounded-full px-2 py-0.5 text-center text-sm font-bold tabular-nums ${
+                      t.jumlah > 0 ? 'bg-emas text-kakao' : 'bg-kraft/60 text-redup'
+                    }`}
+                  >
+                    {t.jumlah}
+                  </span>
+                  <Ikon nama="kanan" className="h-4 w-4 text-redup/60" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
 
-      {pesanan.length === 0 ? (
-        <p className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-8 text-center text-redup">
-          {dipilih === undefined
-            ? 'Belum ada pesanan.'
-            : `Tidak ada pesanan berstatus “${LABEL_STATUS[dipilih]}”.`}
-        </p>
-      ) : (
-        <ul className="space-y-3">
-          {pesanan.map((p) => (
-            <li key={p.id}>
-              <a
-                href={`/admin/pesanan/${p.id}`}
-                className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5 transition-colors hover:border-cabai"
-              >
-                <div>
-                  <p className="font-semibold text-kakao">{p.nomor}</p>
-                  <p className="text-sm text-redup">
-                    {p.nama} · {formatWaktuWib(p.dibuat)}
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="font-semibold text-kakao">{formatRupiah(p.total)}</span>
-                  <LencanaStatus status={p.status} />
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <section className="rounded-2xl border border-kraft-garis bg-kertas">
+        <div className="flex items-center justify-between px-5 py-4">
+          <h2 className="font-judul text-base font-bold text-kakao">Pesanan terbaru</h2>
+          <a href="/admin/pesanan" className="inline-flex min-h-11 items-center text-sm text-redup underline underline-offset-4 hover:text-kakao">
+            Lihat semua pesanan
+          </a>
+        </div>
+        {pesanan.length === 0 ? (
+          <p className="border-t border-kraft-garis px-5 py-10 text-center text-sm text-redup">
+            Belum ada pesanan. Pesanan dari pembeli akan muncul di sini.
+          </p>
+        ) : (
+          <div className="overflow-x-auto border-t border-kraft-garis">
+            <table className="w-full text-sm tabular-nums max-md:block">
+              <thead className="bg-kraft/30 text-xs max-md:hidden">
+                <tr className="text-left text-redup">
+                  <th className="px-5 py-2.5 font-semibold">Nomor</th>
+                  <th className="px-5 py-2.5 font-semibold">Pembeli</th>
+                  <th className="px-5 py-2.5 text-right font-semibold">Total</th>
+                  <th className="px-5 py-2.5 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody className="max-md:block">
+                {pesanan.slice(0, 5).map((p) => (
+                  <tr key={p.id} className="border-t border-kraft-garis transition-colors duration-150 hover:bg-kraft/30 max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-3 max-md:gap-y-1 max-md:px-4 max-md:py-3">
+                    <td className="whitespace-nowrap px-5 py-3 max-md:p-0 max-md:order-1 max-md:flex-1">
+                      <a href={`/admin/pesanan/${p.id}`} className="font-semibold text-kakao underline-offset-4 hover:underline">
+                        {p.nomor}
+                      </a>
+                    </td>
+                    <td className="px-5 py-3 text-kakao max-md:p-0 max-md:order-3 max-md:basis-full">
+                      {p.nama}
+                      <span className="block text-xs text-redup">{formatWaktuWib(p.dibuat)}</span>
+                    </td>
+                    <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao max-md:p-0 max-md:order-2">{formatRupiah(p.total)}</td>
+                    <td className="px-5 py-3 max-md:p-0 max-md:order-4">
+                      <LencanaStatus status={p.status} admin />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
     </main>
   );
 }
