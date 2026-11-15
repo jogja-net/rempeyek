@@ -29,5 +29,30 @@ export interface Testimoni {
   contoh: true | false;
 }
 
-// Kosong = section testimoni disembunyikan. Isi hanya dengan testimoni asli + izin.
-export const testimoni: Testimoni[] = [];
+// DUMMY: tiga testimoni di bawah hanya gambaran tampilan. HAPUS/ganti dengan testimoni asli + izin sebelum dipakai sungguhan.
+export const testimoni: Testimoni[] = [
+  {
+    id: 'dummy-1',
+    kutipan: 'Renyah banget dan gurih, kacangnya banyak. Sekali coba langsung pesan lagi buat oleh-oleh.',
+    nama: 'Ibu Rina',
+    kota: 'Yogyakarta',
+    produk: 'Peyek Kacang Tanah',
+    contoh: false,
+  },
+  {
+    id: 'dummy-2',
+    kutipan: 'Pengiriman cepat, kemasannya rapi dan tidak ada yang remuk. Peyek terinya wangi dan nggak berminyak.',
+    nama: 'Bapak Dimas',
+    kota: 'Sleman',
+    produk: 'Peyek Teri',
+    contoh: false,
+  },
+  {
+    id: 'dummy-3',
+    kutipan: 'Cocok buat teman makan nasi. Anak-anak suka yang kacang hijau, habis dalam sehari.',
+    nama: 'Ibu Wulan',
+    kota: 'Bantul',
+    produk: 'Peyek Kacang Hijau',
+    contoh: false,
+  },
+];
