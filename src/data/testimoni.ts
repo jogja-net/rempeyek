@@ -29,23 +29,30 @@ export interface Testimoni {
   contoh: true | false;
 }
 
+// DUMMY: tiga testimoni di bawah hanya gambaran tampilan. HAPUS/ganti dengan testimoni asli + izin sebelum dipakai sungguhan.
 export const testimoni: Testimoni[] = [
   {
-    id: 'contoh-1',
-    kutipan:
-      'Contoh tampilan: di sini nanti berisi kutipan asli dari chat WhatsApp pembeli, ditulis apa adanya sesuai kalimat pembeli.',
-    nama: '[NAMA PEMBELI]',
-    kota: '[KOTA]',
+    id: 'dummy-1',
+    kutipan: 'Renyah banget dan gurih, kacangnya banyak. Sekali coba langsung pesan lagi buat oleh-oleh.',
+    nama: 'Ibu Rina',
+    kota: 'Yogyakarta',
     produk: 'Peyek Kacang Tanah',
-    contoh: true,
+    contoh: false,
   },
   {
-    id: 'contoh-2',
-    kutipan:
-      'Contoh tampilan: kutipan kedua bisa diambil dari screenshot chat WA, tetap dengan izin pembeli. Panjang idealnya 1 sampai 3 baris.',
-    nama: '[NAMA PEMBELI]',
-    kota: '[KOTA]',
+    id: 'dummy-2',
+    kutipan: 'Pengiriman cepat, kemasannya rapi dan tidak ada yang remuk. Peyek terinya wangi dan nggak berminyak.',
+    nama: 'Bapak Dimas',
+    kota: 'Sleman',
     produk: 'Peyek Teri',
-    contoh: true,
+    contoh: false,
+  },
+  {
+    id: 'dummy-3',
+    kutipan: 'Cocok buat teman makan nasi. Anak-anak suka yang kacang hijau, habis dalam sehari.',
+    nama: 'Ibu Wulan',
+    kota: 'Bantul',
+    produk: 'Peyek Kacang Hijau',
+    contoh: false,
   },
 ];
