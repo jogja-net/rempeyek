@@ -2,9 +2,8 @@
 //
 // Tes Task 2: penjaga mode marketplace.
 //
-// Aturan (Global Constraints): fitur marketplace mati di produksi, dan juga
-// mati bila database tidak dikonfigurasi. Dua syarat itu harus berlaku
-// bersamaan, bukan salah satu.
+// Aturan: fitur marketplace hidup bila database dikonfigurasi, termasuk di
+// produksi (keputusan pemilik 15 Nov 2026), dan mati bila database kosong.
 
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
@@ -12,8 +11,12 @@ import { describe, it } from 'node:test';
 import { marketplaceAktif } from './mode';
 
 describe('marketplaceAktif', () => {
-  it('false bila VERCEL_ENV=production, walau database ada', () => {
-    assert.equal(marketplaceAktif({ VERCEL_ENV: 'production', TURSO_DATABASE_URL: 'libsql://x' }), false);
+  it('true di produksi bila database ada', () => {
+    assert.equal(marketplaceAktif({ VERCEL_ENV: 'production', TURSO_DATABASE_URL: 'libsql://x' }), true);
+  });
+
+  it('false di produksi bila database tidak ada', () => {
+    assert.equal(marketplaceAktif({ VERCEL_ENV: 'production' }), false);
   });
 
   it('true bila database ada dan VERCEL_ENV bukan production', () => {

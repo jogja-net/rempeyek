@@ -17,7 +17,7 @@ import { daftarProdukTampil, type ProdukDb } from './produk-repo';
 /**
  * Produk untuk katalog publik.
  *
- * - Marketplace aktif (bukan produksi + database ada): baca dari database.
+ * - Marketplace aktif (database dikonfigurasi): baca dari database.
  * - Selain itu, atau bila database gagal: petakan `src/data/products.ts` dan
  *   `src/data/sambal.ts` ke bentuk `ProdukDb`.
  *
