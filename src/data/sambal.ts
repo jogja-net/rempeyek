@@ -4,8 +4,8 @@
 export interface Sambal {
   slug: string;
   nama: string;
-  ukuran: string | null; // null → "[UKURAN]"
-  harga: number | null; // null → "[HARGA]"
+  ukuran: string | null; // null → tidak ditampilkan
+  harga: number | null; // null → "Tanya harga lewat WhatsApp"
 }
 
 export const sambal: Sambal[] = [

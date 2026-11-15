@@ -9,11 +9,11 @@ export default function StickyWaBar({ katalog }: { katalog: KatalogLanding }) {
 
   return (
     <div className="sticky bottom-0 z-50 flex items-center justify-between gap-3 border-t border-kraft-garis bg-kertas px-4 py-3 min-[761px]:hidden">
-      <span className="text-[14px] font-semibold">Mulai {formatRupiah(harga)}</span>
+      <span className="text-ket font-semibold">Mulai {formatRupiah(harga)}</span>
       <WaLink
         href={waUmum()}
         lokasi="sticky"
-        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-cabai px-5 text-[15px] font-bold text-white no-underline hover:bg-cabai-tua"
+        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-cabai px-5 text-isi font-bold text-white no-underline hover:bg-cabai-tua"
       >
         Pesan via WhatsApp
       </WaLink>

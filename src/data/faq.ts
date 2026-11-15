@@ -13,15 +13,15 @@ export interface ItemFaq {
 export const faq: ItemFaq[] = [
   {
     pertanyaan: 'Peyek tahan berapa lama?',
-    jawaban: '[X] hari dalam kemasan tertutup. Simpan di tempat kering dan tutup rapat setelah dibuka.',
+    jawaban: 'Simpan di tempat kering dan tutup rapat setelah dibuka. Tanyakan masa simpan tiap varian ke Bu Aviella lewat WhatsApp.',
   },
   {
     pertanyaan: 'Aman dikirim ke luar kota?',
-    jawaban: '[Jelaskan cara pengemasan untuk kirim jauh, misalnya toples + bubble wrap.]',
+    jawaban: 'Peyek dikemas rapat setelah benar-benar dingin supaya tetap renyah. Tanyakan cara pengemasan untuk kiriman jauh lewat WhatsApp.',
   },
   {
     pertanyaan: 'Ada minimal pesanan?',
-    jawaban: 'Eceran tanpa minimal. Hampers minimal [JUMLAH] paket.',
+    jawaban: 'Eceran tanpa minimal. Untuk hampers, tanyakan jumlah minimal paket lewat WhatsApp.',
   },
   {
     pertanyaan: 'Bisa jadi reseller atau titip jual?',

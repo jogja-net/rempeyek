@@ -12,16 +12,17 @@ export default function ProductGrid({ katalog }: { katalog: KatalogLanding }) {
     .filter((b): b is number => typeof b === 'number' && b > 0);
   const beratSeragam =
     daftarBerat.length === peyek.length && new Set(daftarBerat).size === 1 ? daftarBerat[0] : null;
-  const beratTeks = beratSeragam !== null ? String(beratSeragam) : '[BERAT]';
+  const keteranganHarga =
+    beratSeragam !== null ? `Harga per kemasan ${beratSeragam} g.` : 'Harga per kemasan, berat tertera di tiap varian.';
 
   return (
     <section id="varian" className="mx-auto max-w-[1160px] px-6 pt-6 pb-24">
       <div className="mb-9 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
-        <h2 className="m-0 text-[clamp(34px,4.2vw,52px)] leading-[1.05] font-extrabold tracking-[-0.02em]">
+        <h2 className="m-0 text-seksi leading-[1.05] font-extrabold tracking-[-0.02em]">
           Pilih varian peyek
         </h2>
         <p className="m-0 max-w-[42ch] text-redup">
-          Harga per kemasan {beratTeks} g. Stok habis? Masih bisa pesan pre-order.
+          {keteranganHarga} Stok habis? Masih bisa pesan pre-order.
         </p>
       </div>
 
@@ -32,7 +33,7 @@ export default function ProductGrid({ katalog }: { katalog: KatalogLanding }) {
       </div>
 
       {site.areaKirim === null && (
-        <p className="mt-6 text-[14px] text-redup">
+        <p className="mt-6 text-ket text-redup">
           Catatan staging: area pengiriman belum diisi, hubungi Bu Aviella untuk konfirmasi ongkir.
         </p>
       )}

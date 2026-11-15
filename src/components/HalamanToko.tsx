@@ -18,10 +18,10 @@ export default function HalamanToko({ children }: { children: React.ReactNode })
       <PitaDemo />
       <header className="border-b border-kraft-garis bg-krem">
         <div className="mx-auto flex max-w-[1160px] items-center justify-between gap-4 px-6 py-3">
-          <a href="/" className="font-judul text-[20px] font-extrabold tracking-[-0.01em] text-kakao no-underline">
+          <a href="/" className="font-judul text-lead font-extrabold tracking-[-0.01em] whitespace-nowrap text-kakao no-underline">
             {site.nama}
           </a>
-          <nav aria-label="Navigasi toko" className="flex items-center gap-4 text-[15px] font-semibold">
+          <nav aria-label="Navigasi toko" className="flex items-center gap-4 text-isi font-semibold">
             <a href="/lacak" className="text-kakao no-underline hover:underline">
               Lacak pesanan
             </a>

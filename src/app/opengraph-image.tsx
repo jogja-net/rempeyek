@@ -65,7 +65,7 @@ export default async function OpengraphImage() {
             Eceran & hampers
           </span>
           <span style={{ fontSize: 28, color: '#5A4130' }}>
-            {site.kota ?? '[KOTA]'}
+            {site.kota ?? ''}
           </span>
         </div>
       </div>

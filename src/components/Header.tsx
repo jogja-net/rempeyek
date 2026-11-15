@@ -9,13 +9,13 @@ import { IkonChat, PeyekLogo } from './PeyekIllustration';
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-kraft-garis bg-krem">
-      <div className="mx-auto flex max-w-[1160px] items-center justify-between gap-6 px-6 py-3.5">
+      <div className="mx-auto flex max-w-[1160px] items-center justify-between gap-3 px-4 py-3.5 sm:gap-6 sm:px-6">
         <a href="#top" className="flex items-center gap-2.5 text-kakao no-underline">
-          <PeyekLogo className="h-[31px] w-10" />
-          <span className="font-judul text-[20px] font-extrabold tracking-[-0.01em]">{site.nama}</span>
+          <PeyekLogo className="hidden h-[31px] w-10 min-[420px]:block" />
+          <span className="font-judul text-lead font-extrabold tracking-[-0.01em] whitespace-nowrap">{site.nama}</span>
         </a>
 
-        <nav aria-label="Navigasi utama" className="hidden gap-7 text-[15px] font-semibold min-[761px]:flex">
+        <nav aria-label="Navigasi utama" className="hidden gap-7 text-isi font-semibold min-[761px]:flex">
           <a href="#varian" className="no-underline hover:underline">
             Varian
           </a>
@@ -36,10 +36,11 @@ export default function Header() {
           <WaLink
             href={waUmum()}
             lokasi="header"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-cabai px-[18px] text-[15px] font-bold text-white no-underline hover:bg-cabai-tua"
+            aria-label="Pesan via WhatsApp"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-cabai px-4 text-isi font-bold text-white no-underline hover:bg-cabai-tua"
           >
             <IkonChat className="h-[18px] w-[18px]" />
-            <span>Pesan</span>
+            <span className="max-[359px]:hidden">Pesan</span>
           </WaLink>
         </div>
       </div>

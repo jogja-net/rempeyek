@@ -19,6 +19,14 @@
   --font-judul: var(--font-bricolage), system-ui, sans-serif;
   --font-badan: var(--font-jakarta), system-ui, sans-serif;
 
+  /* Skala huruf landing: enam tingkat, jangan menambah ukuran di luar ini. */
+  --text-ket: 13px; /* keterangan, badge, info kecil */
+  --text-isi: 16px; /* teks isi, tombol, kutipan */
+  --text-lead: 18px; /* teks pembuka, pertanyaan FAQ, sub-judul */
+  --text-kartu: 22px; /* judul kartu, harga, merek */
+  --text-seksi: clamp(32px, 4.2vw, 48px); /* judul seksi */
+  --text-hero: clamp(40px, 6.2vw, 72px); /* judul utama */
+
   --radius-kartu: 20px;
   --radius-blok: 28px;
 }

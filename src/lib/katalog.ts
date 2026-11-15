@@ -87,7 +87,7 @@ export function produkCadangan(): ProdukDb[] {
 //
 // Cabang statis SENGAJA mempertahankan `null` (belum diisi) apa adanya, bukan
 // mengubahnya jadi 0 seperti `produkCadangan()`, supaya halaman produksi tetap
-// identik: "[HARGA]" tampil sebagai placeholder dan check-placeholders tetap bekerja.
+// identik: harga kosong tampil "Tanya harga" dan check-placeholders tetap bekerja.
 // ---------------------------------------------------------------------------
 
 export type ProdukKartu = {

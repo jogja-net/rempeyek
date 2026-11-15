@@ -41,20 +41,14 @@ export default function ProductCard({ produk: item, dariDb }: { produk: ProdukKa
         )}
 
         <span
-          className={`absolute top-3.5 right-3.5 rounded-full px-3 py-1 text-[13px] font-bold ${badgeKelas}`}
+          className={`absolute top-3.5 right-3.5 rounded-full px-3 py-1 text-ket font-bold ${badgeKelas}`}
         >
           {labelStatus}
         </span>
-
-        {!adaGambar && (
-          <span className="absolute bottom-3 left-3.5 text-[12px] font-semibold text-redup">
-            [FOTO ASLI]
-          </span>
-        )}
       </div>
 
       <div className="flex grow flex-col gap-2 p-5">
-        <h3 className="m-0 text-[22px] leading-[1.15] font-bold">
+        <h3 className="m-0 text-kartu leading-[1.15] font-bold">
           {dariDb ? (
             <a href={`/produk/${item.slug}`} className="text-kakao no-underline hover:underline">
               {item.nama}
@@ -63,12 +57,12 @@ export default function ProductCard({ produk: item, dariDb }: { produk: ProdukKa
             item.nama
           )}
         </h3>
-        <p className="m-0 grow text-[15px] text-redup">{item.deskripsi}</p>
+        <p className="m-0 grow text-isi text-redup">{item.deskripsi}</p>
 
-        <div className="mt-2 flex items-center justify-between gap-3">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-3">
           <div className="flex flex-col leading-[1.2]">
-            <span className="font-judul text-[22px] font-extrabold">{formatRupiah(item.harga)}</span>
-            <span className="text-[13px] text-redup">{formatBerat(item.berat_gram)}</span>
+            <span className="font-judul text-kartu font-extrabold whitespace-nowrap text-cabai">{formatRupiah(item.harga)}</span>
+            <span className="text-ket text-redup">{item.berat_gram ? formatBerat(item.berat_gram) : ''}</span>
           </div>
 
           {bisaKeranjang ? (
@@ -79,7 +73,7 @@ export default function ProductCard({ produk: item, dariDb }: { produk: ProdukKa
               lokasi="kartu"
               produk={item.slug}
               aria-label={`${labelCta}: ${item.nama}`}
-              className="inline-flex min-h-11 items-center rounded-full border-2 border-cabai px-[18px] text-[15px] font-bold text-cabai no-underline hover:bg-cabai hover:text-white"
+              className="inline-flex min-h-11 items-center rounded-full border-2 border-cabai px-[18px] text-isi font-bold whitespace-nowrap text-cabai no-underline hover:bg-cabai hover:text-white"
             >
               {labelCta}
             </WaLink>

@@ -7,9 +7,9 @@ export interface Produk {
   slug: string;
   nama: string;
   deskripsi_singkat: string;
-  harga: number | null; // null = belum diisi → tampil "[HARGA]"
+  harga: number | null; // null = belum diisi → tampil "Tanya harga"
   harga_coret?: number | null;
-  berat_gram: number | null; // null → "[BERAT]"
+  berat_gram: number | null; // null → berat tidak ditampilkan
   gambar: string[]; // path di /public/produk/, kosong → ilustrasi peyek
   status: StatusProduk;
   warna_isian: string; // warna kacang/isi di ilustrasi placeholder
