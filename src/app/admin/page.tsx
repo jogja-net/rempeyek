@@ -1,6 +1,7 @@
 // src/app/admin/page.tsx
 //
-// Dashboard admin gaya Lapakku: 4 kartu statistik, grafik omzet 14 hari, dan
+// Dashboard admin gaya Lapakku. Satu panel gelap (omzet + grafik) jadi titik
+// fokus; di sebelahnya daftar "Perlu tindakan" yang bisa diklik; di bawahnya
 // pesanan terbaru. Daftar pesanan lengkap ada di /admin/pesanan.
 // `requireAdmin()` wajib dipanggil di sini: layout bukan penjaga.
 //
@@ -10,6 +11,8 @@
 import type { Metadata } from 'next';
 
 import GrafikBatang from '@/components/admin/GrafikBatang';
+import Ikon, { type NamaIkon } from '@/components/admin/Ikon';
+import JudulHalaman from '@/components/admin/JudulHalaman';
 import LencanaStatus from '@/components/LencanaStatus';
 import { dbAdmin, requireAdmin } from '@/lib/admin-sesi';
 import { formatRupiah, formatWaktuWib } from '@/lib/format';
@@ -53,67 +56,97 @@ export default async function Dashboard() {
     return { label: tgl.slice(5).replace('-', '/'), nilai: perHari.get(tgl) ?? 0 };
   });
 
-  const kartu = [
-    { judul: 'Omzet bulan ini', nilai: formatRupiah(omzetBulan), href: '/admin/laporan' },
-    { judul: 'Pesanan hari ini', nilai: String(pesananHariIni), href: '/admin/pesanan' },
-    { judul: 'Menunggu pembayaran', nilai: String(menunggu), href: '/admin/pesanan?status=menunggu_pembayaran' },
-    { judul: 'Perlu dikirim', nilai: String(perluKirim), href: '/admin/pesanan?status=dibayar' },
-    { judul: 'Produk habis / PO', nilai: String(produkHabis), href: '/admin/produk' },
+  const tindakan: { teks: string; jumlah: number; href: string; ikon: NamaIkon }[] = [
+    { teks: 'Menunggu bayar', jumlah: menunggu, href: '/admin/pesanan?status=menunggu_pembayaran', ikon: 'waktu' },
+    { teks: 'Perlu dikirim', jumlah: perluKirim, href: '/admin/pesanan?status=dibayar', ikon: 'kirim' },
+    { teks: 'Produk habis / PO', jumlah: produkHabis, href: '/admin/produk', ikon: 'produk' },
   ];
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
-      <h1 className="mb-6 font-judul text-3xl font-bold text-kakao">Dashboard</h1>
+      <JudulHalaman judul="Dashboard" deskripsi="Ringkasan penjualan dan hal yang perlu Anda tangani." />
 
-      <div className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-3">
-        {kartu.map((k) => (
-          <a
-            key={k.judul}
-            href={k.href}
-            className="rounded-[var(--radius-kartu)] border border-kraft-garis border-l-4 border-l-emas bg-kertas p-5 transition-colors hover:border-cabai"
-          >
-            <p className="text-sm text-redup">{k.judul}</p>
-            <p className="font-judul text-2xl font-bold text-kakao">{k.nilai}</p>
-          </a>
-        ))}
-      </div>
+      <div className="mb-6 grid gap-4 lg:grid-cols-3">
+        <section className="rounded-2xl bg-kakao p-6 text-kertas lg:col-span-2">
+          <p className="text-sm text-redup-terang">Omzet bulan ini</p>
+          <p className="mb-1 font-judul text-4xl font-extrabold tabular-nums">{formatRupiah(omzetBulan)}</p>
+          <p className="mb-6 text-sm text-redup-terang">
+            {pesananHariIni === 0 ? 'Belum ada pesanan masuk hari ini' : `${pesananHariIni} pesanan masuk hari ini`}
+          </p>
+          <GrafikBatang data={grafik} gelap />
+        </section>
 
-      <section className="mb-8 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-5">
-        <h2 className="mb-4 font-judul text-lg font-bold text-kakao">Omzet {HARI_GRAFIK} hari terakhir</h2>
-        <GrafikBatang data={grafik} />
-      </section>
-
-      <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas">
-        <div className="flex items-center justify-between px-5 py-4">
-          <h2 className="font-judul text-lg font-bold text-kakao">Pesanan terbaru</h2>
-          <a href="/admin/pesanan" className="text-sm text-redup underline underline-offset-4">
-            Lihat semua
-          </a>
-        </div>
-        {pesanan.length === 0 ? (
-          <p className="border-t border-kraft-garis px-5 py-8 text-center text-redup">Belum ada pesanan.</p>
-        ) : (
-          <ul className="border-t border-kraft-garis">
-            {pesanan.slice(0, 5).map((p) => (
-              <li key={p.id} className="border-b border-kraft-garis last:border-0">
+        <section className="rounded-2xl border border-kraft-garis bg-kertas p-2">
+          <h2 className="px-3 pb-1 pt-3 font-judul text-base font-bold text-kakao">Perlu tindakan</h2>
+          <ul>
+            {tindakan.map((t) => (
+              <li key={t.teks}>
                 <a
-                  href={`/admin/pesanan/${p.id}`}
-                  className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-3 hover:bg-kraft/30"
+                  href={t.href}
+                  className="flex items-center gap-3 rounded-xl px-3 py-3 transition-colors duration-150 hover:bg-kraft/40"
                 >
-                  <span>
-                    <span className="font-semibold text-kakao">{p.nomor}</span>
-                    <span className="block text-sm text-redup">
-                      {p.nama} · {formatWaktuWib(p.dibuat)}
-                    </span>
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-kraft/60 text-redup">
+                    <Ikon nama={t.ikon} />
                   </span>
-                  <span className="flex items-center gap-4">
-                    <span className="font-semibold text-kakao">{formatRupiah(p.total)}</span>
-                    <LencanaStatus status={p.status} />
+                  <span className="min-w-0 flex-1 text-sm text-kakao">{t.teks}</span>
+                  <span
+                    className={`min-w-7 rounded-full px-2 py-0.5 text-center text-sm font-bold tabular-nums ${
+                      t.jumlah > 0 ? 'bg-emas text-kakao' : 'bg-kraft/60 text-redup'
+                    }`}
+                  >
+                    {t.jumlah}
                   </span>
+                  <Ikon nama="kanan" className="h-4 w-4 text-redup/60" />
                 </a>
               </li>
             ))}
           </ul>
+        </section>
+      </div>
+
+      <section className="rounded-2xl border border-kraft-garis bg-kertas">
+        <div className="flex items-center justify-between px-5 py-4">
+          <h2 className="font-judul text-base font-bold text-kakao">Pesanan terbaru</h2>
+          <a href="/admin/pesanan" className="text-sm text-redup underline underline-offset-4 hover:text-kakao">
+            Lihat semua pesanan
+          </a>
+        </div>
+        {pesanan.length === 0 ? (
+          <p className="border-t border-kraft-garis px-5 py-10 text-center text-sm text-redup">
+            Belum ada pesanan. Pesanan dari pembeli akan muncul di sini.
+          </p>
+        ) : (
+          <div className="overflow-x-auto border-t border-kraft-garis">
+            <table className="w-full text-sm tabular-nums">
+              <thead className="bg-kraft/30 text-xs">
+                <tr className="text-left text-redup">
+                  <th className="px-5 py-2.5 font-semibold">Nomor</th>
+                  <th className="px-5 py-2.5 font-semibold">Pembeli</th>
+                  <th className="px-5 py-2.5 text-right font-semibold">Total</th>
+                  <th className="px-5 py-2.5 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pesanan.slice(0, 5).map((p) => (
+                  <tr key={p.id} className="border-t border-kraft-garis transition-colors duration-150 hover:bg-kraft/30">
+                    <td className="whitespace-nowrap px-5 py-3">
+                      <a href={`/admin/pesanan/${p.id}`} className="font-semibold text-kakao underline-offset-4 hover:underline">
+                        {p.nomor}
+                      </a>
+                    </td>
+                    <td className="px-5 py-3 text-kakao">
+                      {p.nama}
+                      <span className="block text-xs text-redup">{formatWaktuWib(p.dibuat)}</span>
+                    </td>
+                    <td className="whitespace-nowrap px-5 py-3 text-right font-semibold text-kakao">{formatRupiah(p.total)}</td>
+                    <td className="px-5 py-3">
+                      <LencanaStatus status={p.status} admin />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
     </main>

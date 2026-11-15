@@ -5,6 +5,7 @@
 
 import type { Metadata } from 'next';
 
+import JudulHalaman from '@/components/admin/JudulHalaman';
 import { dbAdmin, requireAdmin } from '@/lib/admin-sesi';
 import { formatBerat, formatRupiah } from '@/lib/format';
 import { daftarProdukAdmin } from '@/lib/produk-repo';
@@ -39,15 +40,14 @@ export default async function HalamanProduk({
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-judul text-3xl font-bold text-kakao">Produk</h1>
+      <JudulHalaman judul="Produk" deskripsi="Atur harga, status, dan foto. Produk yang sudah pernah dipesan hanya diarsipkan.">
         <a
           href="/admin/produk/baru"
-          className="rounded-xl bg-cabai px-5 py-3 text-sm font-semibold text-kertas transition-colors hover:bg-cabai-tua"
+          className="rounded-[10px] bg-cabai px-5 py-2.5 text-sm font-semibold text-kertas transition-colors duration-150 hover:bg-cabai-tua"
         >
           Tambah produk
         </a>
-      </div>
+      </JudulHalaman>
 
       {pesan !== undefined && (
         <p
@@ -59,19 +59,19 @@ export default async function HalamanProduk({
       )}
 
       {produk.length === 0 ? (
-        <p className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-8 text-center text-redup">
+        <p className="rounded-2xl border border-kraft-garis bg-kertas p-8 text-center text-redup">
           Belum ada produk.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas">
-          <table className="w-full text-sm">
-            <thead>
+        <div className="overflow-x-auto rounded-2xl border border-kraft-garis bg-kertas">
+          <table className="w-full text-sm tabular-nums">
+            <thead className="bg-kraft/30 text-xs">
               <tr className="border-b border-kraft-garis text-left text-redup">
-                <th className="px-5 py-3 font-medium">Produk</th>
-                <th className="px-5 py-3 font-medium">Kategori</th>
-                <th className="px-5 py-3 font-medium">Berat</th>
-                <th className="px-5 py-3 text-right font-medium">Harga</th>
-                <th className="px-5 py-3 font-medium">Status</th>
+                <th className="px-5 py-2.5 font-semibold">Produk</th>
+                <th className="px-5 py-2.5 font-semibold">Kategori</th>
+                <th className="px-5 py-2.5 font-semibold">Berat</th>
+                <th className="px-5 py-2.5 text-right font-semibold">Harga</th>
+                <th className="px-5 py-2.5 font-semibold">Status</th>
               </tr>
             </thead>
             <tbody>

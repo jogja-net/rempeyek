@@ -73,7 +73,7 @@ export default async function HalamanDetailPesanan({
 
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <h1 className="font-judul text-3xl font-bold text-kakao">{pesanan.nomor}</h1>
-        <LencanaStatus status={tampil} />
+        <LencanaStatus status={tampil} admin />
       </div>
 
       {pesanGalat !== undefined && pesanGalat !== '' && (
@@ -85,7 +85,7 @@ export default async function HalamanDetailPesanan({
         </p>
       )}
 
-      <section className="mb-6 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6">
+      <section className="mb-6 rounded-2xl border border-kraft-garis bg-kertas p-6">
         <h2 className="mb-2 font-judul text-lg font-bold text-kakao">Pembeli</h2>
         <dl>
           <Baris label="Nama">{pesanan.nama}</Baris>
@@ -97,7 +97,7 @@ export default async function HalamanDetailPesanan({
         </dl>
       </section>
 
-      <section className="mb-6 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6">
+      <section className="mb-6 rounded-2xl border border-kraft-garis bg-kertas p-6">
         <h2 className="mb-2 font-judul text-lg font-bold text-kakao">Pengiriman</h2>
         <dl>
           <Baris label="Kurir">
@@ -121,7 +121,7 @@ export default async function HalamanDetailPesanan({
         </dl>
       </section>
 
-      <section className="mb-6 rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6">
+      <section className="mb-6 rounded-2xl border border-kraft-garis bg-kertas p-6">
         <h2 className="mb-3 font-judul text-lg font-bold text-kakao">Isi pesanan</h2>
         <ul className="divide-y divide-kraft-garis text-sm">
           {pesanan.items.map((i) => (

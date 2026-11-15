@@ -7,6 +7,7 @@
 
 import type { Metadata } from 'next';
 
+import JudulHalaman from '@/components/admin/JudulHalaman';
 import LencanaStatus from '@/components/LencanaStatus';
 import { dbAdmin, requireAdmin } from '@/lib/admin-sesi';
 import { formatRupiah, formatWaktuWib } from '@/lib/format';
@@ -80,7 +81,7 @@ export default async function HalamanPesanan({
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
-      <h1 className="mb-6 font-judul text-3xl font-bold text-kakao">Pesanan</h1>
+      <JudulHalaman judul="Pesanan" deskripsi="Cari pesanan, lalu buka untuk menandai dibayar, mengirim, atau mencetak resi." />
 
       <form method="get" action="/admin/pesanan" className="mb-4 flex flex-wrap gap-2">
         {status !== undefined && <input type="hidden" name="status" value={status} />}
@@ -106,25 +107,25 @@ export default async function HalamanPesanan({
       </div>
 
       {tampil.length === 0 ? (
-        <p className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-8 text-center text-redup">
+        <p className="rounded-2xl border border-kraft-garis bg-kertas p-8 text-center text-redup">
           {q !== '' || status !== undefined ? 'Tidak ada pesanan yang cocok.' : 'Belum ada pesanan.'}
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas">
-          <table className="w-full text-sm">
-            <thead>
+        <div className="overflow-x-auto rounded-2xl border border-kraft-garis bg-kertas">
+          <table className="w-full text-sm tabular-nums">
+            <thead className="bg-kraft/30 text-xs">
               <tr className="border-b border-kraft-garis text-left text-redup">
-                <th className="px-5 py-3 font-medium">Nomor</th>
-                <th className="px-5 py-3 font-medium">Pembeli</th>
-                <th className="px-5 py-3 font-medium">Tanggal</th>
-                <th className="px-5 py-3 text-right font-medium">Total</th>
-                <th className="px-5 py-3 font-medium">Status</th>
+                <th className="px-5 py-2.5 font-semibold">Nomor</th>
+                <th className="px-5 py-2.5 font-semibold">Pembeli</th>
+                <th className="px-5 py-2.5 font-semibold">Tanggal</th>
+                <th className="px-5 py-2.5 text-right font-semibold">Total</th>
+                <th className="px-5 py-2.5 font-semibold">Status</th>
               </tr>
             </thead>
             <tbody>
               {tampil.map((p) => (
-                <tr key={p.id} className="border-b border-kraft-garis last:border-0 hover:bg-kraft/30">
-                  <td className="px-5 py-3">
+                <tr key={p.id} className="border-b border-kraft-garis transition-colors duration-150 last:border-0 hover:bg-kraft/30">
+                  <td className="whitespace-nowrap px-5 py-3">
                     <a href={`/admin/pesanan/${p.id}`} className="font-semibold text-kakao underline-offset-4 hover:underline">
                       {p.nomor}
                     </a>
@@ -135,7 +136,7 @@ export default async function HalamanPesanan({
                     {formatRupiah(p.total)}
                   </td>
                   <td className="px-5 py-3">
-                    <LencanaStatus status={p.status} />
+                    <LencanaStatus status={p.status} admin />
                   </td>
                 </tr>
               ))}

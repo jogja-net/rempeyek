@@ -66,7 +66,7 @@ export default async function HalamanFormProduk({
       >
         <input type="hidden" name="id" value={idTeks} />
 
-        <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6 space-y-5">
+        <section className="rounded-2xl border border-kraft-garis bg-kertas p-6 space-y-5">
           <h2 className="font-judul text-lg font-bold text-kakao">Informasi produk</h2>
         <div>
           <label htmlFor="nama" className="mb-1 block text-sm font-medium text-kakao">
@@ -121,7 +121,7 @@ export default async function HalamanFormProduk({
 
         </section>
 
-        <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6 space-y-5">
+        <section className="rounded-2xl border border-kraft-garis bg-kertas p-6 space-y-5">
           <h2 className="font-judul text-lg font-bold text-kakao">Harga dan kemasan</h2>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
@@ -162,7 +162,7 @@ export default async function HalamanFormProduk({
 
         </section>
 
-        <section className="rounded-[var(--radius-kartu)] border border-kraft-garis bg-kertas p-6 space-y-5">
+        <section className="rounded-2xl border border-kraft-garis bg-kertas p-6 space-y-5">
           <h2 className="font-judul text-lg font-bold text-kakao">Foto</h2>
         <div>
           <label htmlFor="foto" className="mb-1 block text-sm font-medium text-kakao">
