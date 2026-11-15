@@ -29,23 +29,5 @@ export interface Testimoni {
   contoh: true | false;
 }
 
-export const testimoni: Testimoni[] = [
-  {
-    id: 'contoh-1',
-    kutipan:
-      'Contoh tampilan: di sini nanti berisi kutipan asli dari chat WhatsApp pembeli, ditulis apa adanya sesuai kalimat pembeli.',
-    nama: '[NAMA PEMBELI]',
-    kota: '[KOTA]',
-    produk: 'Peyek Kacang Tanah',
-    contoh: true,
-  },
-  {
-    id: 'contoh-2',
-    kutipan:
-      'Contoh tampilan: kutipan kedua bisa diambil dari screenshot chat WA, tetap dengan izin pembeli. Panjang idealnya 1 sampai 3 baris.',
-    nama: '[NAMA PEMBELI]',
-    kota: '[KOTA]',
-    produk: 'Peyek Teri',
-    contoh: true,
-  },
-];
+// Kosong = section testimoni disembunyikan. Isi hanya dengan testimoni asli + izin.
+export const testimoni: Testimoni[] = [];

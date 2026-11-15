@@ -15,13 +15,14 @@ export interface Produk {
   warna_isian: string; // warna kacang/isi di ilustrasi placeholder
 }
 
+// DUMMY: harga & berat di bawah hanya sementara, ganti dengan data asli dari Bu Aviella.
 export const produk: Produk[] = [
   {
     slug: 'peyek-kacang-tanah',
     nama: 'Peyek Kacang Tanah',
     deskripsi_singkat: 'Varian klasik, kacang tanah di setiap keping.',
-    harga: null,
-    berat_gram: null,
+    harga: 25000,
+    berat_gram: 250,
     gambar: [],
     status: 'tersedia',
     warna_isian: '#9A5B22',
@@ -30,8 +31,8 @@ export const produk: Produk[] = [
     slug: 'peyek-kacang-hijau',
     nama: 'Peyek Kacang Hijau',
     deskripsi_singkat: 'Kacang hijau utuh dalam adonan tipis.',
-    harga: null,
-    berat_gram: null,
+    harga: 25000,
+    berat_gram: 250,
     gambar: [],
     status: 'tersedia',
     warna_isian: '#5F7A2E',
@@ -40,8 +41,8 @@ export const produk: Produk[] = [
     slug: 'peyek-teri',
     nama: 'Peyek Teri',
     deskripsi_singkat: 'Teri nasi gurih, pas jadi lauk.',
-    harga: null,
-    berat_gram: null,
+    harga: 35000,
+    berat_gram: 200,
     gambar: [],
     status: 'tersedia',
     warna_isian: '#6F767C',
@@ -50,8 +51,8 @@ export const produk: Produk[] = [
     slug: 'peyek-rebon',
     nama: 'Peyek Rebon',
     deskripsi_singkat: 'Udang rebon kering dengan aroma yang khas.',
-    harga: null,
-    berat_gram: null,
+    harga: 35000,
+    berat_gram: 200,
     gambar: [],
     status: 'po',
     warna_isian: '#C0613E',
