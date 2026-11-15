@@ -1,4 +1,3 @@
-import { site } from '@/data/site';
 import type { KatalogLanding } from '@/lib/katalog';
 import ProductCard from './ProductCard';
 
@@ -31,12 +30,6 @@ export default function ProductGrid({ katalog }: { katalog: KatalogLanding }) {
           <ProductCard key={item.slug} produk={item} dariDb={dariDb} />
         ))}
       </div>
-
-      {site.areaKirim === null && (
-        <p className="mt-6 text-ket text-redup">
-          Catatan staging: area pengiriman belum diisi, hubungi Bu Aviella untuk konfirmasi ongkir.
-        </p>
-      )}
     </section>
   );
 }
