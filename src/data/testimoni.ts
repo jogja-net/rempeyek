@@ -36,16 +36,16 @@ export const testimoni: Testimoni[] = [
       'Contoh tampilan: di sini nanti berisi kutipan asli dari chat WhatsApp pembeli, ditulis apa adanya sesuai kalimat pembeli.',
     nama: '[NAMA PEMBELI]',
     kota: '[KOTA]',
-    produk: 'Rempeyek Kacang Tanah',
+    produk: 'Peyek Kacang Tanah',
     contoh: true,
   },
   {
     id: 'contoh-2',
     kutipan:
-      'Contoh tampilan: kutipan kedua bisa diambil dari screenshot chat WA, tetap dengan izin pembeli. Panjang idealnya 1–3 baris.',
+      'Contoh tampilan: kutipan kedua bisa diambil dari screenshot chat WA, tetap dengan izin pembeli. Panjang idealnya 1 sampai 3 baris.',
     nama: '[NAMA PEMBELI]',
     kota: '[KOTA]',
-    produk: 'Rempeyek Teri',
+    produk: 'Peyek Teri',
     contoh: true,
   },
 ];

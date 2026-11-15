@@ -1,5 +1,7 @@
 import { site } from '@/data/site';
+import { marketplaceAktif } from '@/lib/mode';
 import { waUmum } from '@/lib/whatsapp';
+import IkonKeranjang from './IkonKeranjang';
 import WaLink from './WaLink';
 import { IkonChat, PeyekLogo } from './PeyekIllustration';
 
@@ -28,14 +30,18 @@ export default function Header() {
           </a>
         </nav>
 
-        <WaLink
-          href={waUmum()}
-          lokasi="header"
-          className="inline-flex min-h-11 items-center gap-2 rounded-full bg-cabai px-[18px] text-[15px] font-bold text-white no-underline hover:bg-cabai-tua"
-        >
-          <IkonChat className="h-[18px] w-[18px]" />
-          <span>Pesan</span>
-        </WaLink>
+        <div className="flex items-center gap-2">
+          {/* Hanya saat marketplace aktif (Task 9); di produksi header tidak berubah. */}
+          {marketplaceAktif() && <IkonKeranjang />}
+          <WaLink
+            href={waUmum()}
+            lokasi="header"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-cabai px-[18px] text-[15px] font-bold text-white no-underline hover:bg-cabai-tua"
+          >
+            <IkonChat className="h-[18px] w-[18px]" />
+            <span>Pesan</span>
+          </WaLink>
+        </div>
       </div>
     </header>
   );

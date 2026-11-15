@@ -1,4 +1,4 @@
-docs
+/docs
 
 # dependencies
 /node_modules
@@ -32,3 +32,10 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# database lokal (SQLite berbasis berkas, hanya untuk pengembangan)
+local.db*
+
+# perkakas kerja agentik (jangan di-commit)
+.superpowers/
+.playwright-mcp/

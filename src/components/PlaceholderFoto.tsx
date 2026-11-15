@@ -3,7 +3,7 @@
 // (HANDOFF §6). Dipakai selama `gambar: []` belum diisi Bu Aviella.
 
 interface PlaceholderFotoProps {
-  /** Instruksi foto yang dibutuhkan, mis. "[FOTO ASLI] Close-up rempeyek…". */
+  /** Instruksi foto yang dibutuhkan, mis. "[FOTO ASLI] Close-up peyek…". */
   label: string;
   className?: string;
   /** Ukuran teks label. */

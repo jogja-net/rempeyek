@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/next';
 import { site } from '@/data/site';
+import { KeranjangProvider } from '@/components/KeranjangProvider';
+import { marketplaceAktif } from '@/lib/mode';
 import './globals.css';
 
 // Font di-self-host dari berkas lokal, bukan diambil dari Google saat build.
@@ -24,10 +26,12 @@ const jakarta = localFont({
 
 
 // Title ≤ 60 karakter setelah kota diisi (HANDOFF §8).
-// Contoh terisi (kota "Sleman"): "Rempeyek Kacang Renyah Bu Aviella – Sleman | Pesan WA" = 55 karakter.
-const judul = `Rempeyek Kacang Renyah Bu Aviella – ${site.kota ?? '[KOTA]'} | Pesan WA`;
+// Kata kunci utama ("peyek kacang", ±6.600 pencarian/bulan di Indonesia, riset 15 Nov 2026)
+// berada di awal, diikuti nama usaha, kota, dan ajakan bertindak.
+// Contoh terisi (kota "Sleman"): "Peyek Kacang Renyah Bu Aviella, Sleman | Pesan WA" = 49 karakter.
+const judul = `Peyek Kacang Renyah Bu Aviella, ${site.kota ?? '[KOTA]'} | Pesan WA`;
 const deskripsi =
-  'Rempeyek kacang tanah, kacang hijau, teri, dan rebon. Digoreng tipis, dikemas setelah dingin. Pesan langsung ke Bu Aviella lewat WhatsApp, bisa kirim luar kota.';
+  'Peyek kacang tanah, kacang hijau, teri, dan rebon dari dapur rumah di Sleman. Digoreng tipis, dikemas setelah dingin. Pesan via WA, bisa kirim luar kota.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -60,7 +64,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id" className={`${bricolage.variable} ${jakarta.variable}`}>
       <body>
-        {children}
+        {/* Provider keranjang hanya dipasang saat marketplace aktif; di produksi
+            halaman identik dengan sebelum Fase 2 (tanpa JS tambahan). */}
+        {marketplaceAktif() ? <KeranjangProvider>{children}</KeranjangProvider> : children}
         <Analytics />
       </body>
     </html>

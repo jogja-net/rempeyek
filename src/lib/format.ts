@@ -15,6 +15,18 @@ export function formatBerat(gram: number | null | undefined): string {
   return `${gram.toLocaleString('id-ID')} g`;
 }
 
+/** Waktu ISO → "14 Nov 2026 07.30" menurut WIB; teks asli bila tidak valid. */
+export function formatWaktuWib(iso: string | null | undefined): string {
+  if (iso === null || iso === undefined) return '-';
+  const t = new Date(iso);
+  if (Number.isNaN(t.getTime())) return iso;
+  return t.toLocaleString('id-ID', {
+    timeZone: 'Asia/Jakarta',
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
+}
+
 /** Teks bebas. Kosong/`null` → placeholder yang diberikan. */
 export function atau(nilai: string | null | undefined, placeholder: string): string {
   return nilai && nilai.trim() !== '' ? nilai : placeholder;

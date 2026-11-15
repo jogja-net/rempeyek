@@ -1,5 +1,6 @@
 // src/lib/whatsapp.ts
 import { site } from '@/data/site';
+import { formatRupiah } from './format';
 
 /** Nomor placeholder yang dipakai selama nomor WA asli belum diisi. */
 const NOMOR_PLACEHOLDER = '62XXXXXXXXXX';
@@ -20,12 +21,15 @@ export function buildWaLink(nomor: string | null, pesan: string): string {
 
 // Template pesan (HANDOFF §5) — jangan diubah tanpa memperbarui HANDOFF.
 export const pesan = {
-  umum: 'Halo Bu Aviella, saya mau pesan rempeyek.',
+  umum: 'Halo Bu Aviella, saya mau pesan peyek.',
   produk: (nama: string) => `Halo Bu Aviella, saya mau pesan ${nama} x 1.\nNama: \nAlamat: `,
   produkPo: (nama: string) => `Halo Bu Aviella, saya mau pre-order ${nama} x 1.\nNama: \nAlamat: `,
-  sambal: (nama: string) => `Halo Bu Aviella, saya mau tambah ${nama} x 1 ke pesanan rempeyek.`,
+  sambal: (nama: string) => `Halo Bu Aviella, saya mau tambah ${nama} x 1 ke pesanan peyek.`,
   hampers: 'Halo Bu Aviella, saya mau tanya paket hampers.\nJumlah: \nTanggal acara: \nBudget: ',
-  reseller: 'Halo Bu Aviella, saya tertarik jadi reseller rempeyek.',
+  reseller: 'Halo Bu Aviella, saya tertarik jadi reseller peyek.',
+  // Marketplace (Task 9): pembeli mengirim bukti transfer setelah checkout.
+  bukti: (nomor: string, total: number, rekeningNama: string) =>
+    `Halo Bu Aviella, saya sudah transfer untuk pesanan ${nomor} (total ${formatRupiah(total)}) ke rekening a.n. ${rekeningNama}. Berikut bukti transfernya.`,
 } as const;
 
 export function waUmum() {

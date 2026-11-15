@@ -17,8 +17,8 @@ export interface Produk {
 
 export const produk: Produk[] = [
   {
-    slug: 'rempeyek-kacang-tanah',
-    nama: 'Rempeyek Kacang Tanah',
+    slug: 'peyek-kacang-tanah',
+    nama: 'Peyek Kacang Tanah',
     deskripsi_singkat: 'Varian klasik, kacang tanah di setiap keping.',
     harga: null,
     berat_gram: null,
@@ -27,8 +27,8 @@ export const produk: Produk[] = [
     warna_isian: '#9A5B22',
   },
   {
-    slug: 'rempeyek-kacang-hijau',
-    nama: 'Rempeyek Kacang Hijau',
+    slug: 'peyek-kacang-hijau',
+    nama: 'Peyek Kacang Hijau',
     deskripsi_singkat: 'Kacang hijau utuh dalam adonan tipis.',
     harga: null,
     berat_gram: null,
@@ -37,8 +37,8 @@ export const produk: Produk[] = [
     warna_isian: '#5F7A2E',
   },
   {
-    slug: 'rempeyek-teri',
-    nama: 'Rempeyek Teri',
+    slug: 'peyek-teri',
+    nama: 'Peyek Teri',
     deskripsi_singkat: 'Teri nasi gurih, pas jadi lauk.',
     harga: null,
     berat_gram: null,
@@ -47,8 +47,8 @@ export const produk: Produk[] = [
     warna_isian: '#6F767C',
   },
   {
-    slug: 'rempeyek-rebon',
-    nama: 'Rempeyek Rebon',
+    slug: 'peyek-rebon',
+    nama: 'Peyek Rebon',
     deskripsi_singkat: 'Udang rebon kering dengan aroma yang khas.',
     harga: null,
     berat_gram: null,

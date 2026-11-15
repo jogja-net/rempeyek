@@ -34,7 +34,7 @@ export default function Testimonials() {
               >
                 {item.contoh && (
                   <span className="w-fit rounded-full bg-emas px-3 py-1 text-[12px] font-bold text-kakao uppercase">
-                    Contoh — menunggu testimoni asli
+                    Contoh: menunggu testimoni asli
                   </span>
                 )}
 
